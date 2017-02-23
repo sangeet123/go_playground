@@ -7,6 +7,7 @@ import "unicode"
 // if a word has all upper case letter it is a valid word eg "USA"
 // if a word has all small case letter it is a valid word eg "hello"
 // words with leading or trailing whitespaces or has whitespaces in between characters are not valid eg "h ello"
+// the credit for this question goes to leetcode
 func ValidCapital(word string) bool{
 	
 	if len(word) == 0{
