@@ -1,7 +1,6 @@
 package compressstring
 
 import "strconv"
-import "fmt"
 
 // This is O(2n) solution
 func compress(word string)string{
@@ -51,7 +50,6 @@ func compress_efficient(word string)string{
 	}
 
 	compressed = compressed + string(word[len(word)-1]) + strconv.Itoa(count)
-	fmt.Println(compressed)
 
 	if len(compressed) < len(word){
 		return compressed
