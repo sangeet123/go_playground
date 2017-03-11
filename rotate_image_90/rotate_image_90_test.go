@@ -172,6 +172,17 @@ func TestRotateImageUsingTransposeMultiDimensionalSquareArrayOddSevenDimension(t
 	}
 }
 
+func TestRotateInplaceImageSingleRowArray(t *testing.T){
+	defer func() {
+        if r := recover(); r == nil {
+        	t.Error("Expected panic but failed")
+        }
+    }()
+	input := [][]int{{1,2,3,4}}
+	rotatedimgby90inplaceUsingTranspose(input)
+}
+
+
 
 
 
