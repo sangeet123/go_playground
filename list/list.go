@@ -6,30 +6,72 @@ import "reflect"
 // represents generic type
 type custom_type interface {}
 
+//=============================Generic data type ======================================================
+
 // interface that list implements
 type listInterface interface{
-	insert_at(data custom_type, loc int)
-	insert(data custom_type)
-	append(data custom_type)
-	delete(data custom_type)
-	contains(data custom_type) (*Node, bool)
-	iterator()func() *Node
-	get(loc int) *Node
+	InsertAt(data custom_type, loc int)
+	Insert (data custom_type)
+	Append(data custom_type)
+	Delete(data custom_type)
+	contains(data custom_type) (*node, bool)
+	IsPresent(data custom_type) bool
+	iterator()func() *node
+	get(loc int) custom_type
 }
 
 // This type represent the single node of list
-type Node struct{
+type node struct{
 	data custom_type
-	next *Node
-	prev *Node
+	next *node
+	prev *node
 }
 
-//List wrapper type
+
+// represents list data structure
 type List struct{
-	root *Node
-	end  *Node
+	root *node
+	end  *node
 	size int
 }
+ //=============================================================List data structures completes here ===========================================
+
+//Iterator interface
+type Iterator interface{
+	Iterator()ListIterator
+	Next()custom_type
+	Prev()custom_type
+	HasNext()bool
+}
+
+type ListIterator struct{
+	list List
+}
+
+func(list List)Iterator()*ListIterator{
+	listIterator := new (ListIterator)
+	listIterator.list = list
+	return listIterator
+}
+
+func(this *ListIterator) HasNext()bool{
+	return this.list.root != nil
+}
+
+func(this *ListIterator)Next()custom_type{
+	data := this.list.root.data
+	this.list.root = this.list.root.next
+	return data
+}
+
+func(this *ListIterator)Prev()custom_type{
+	data := this.list.root.data
+	this.list.root = this.list.root.prev
+	return data
+}
+
+//====================================================================List Iterator completes here =========================================
+
 
 func(list *List)asset_valid_index(ind int){
 	if ind > list.size || ind < 0{
@@ -37,30 +79,33 @@ func(list *List)asset_valid_index(ind int){
 	}
 }
 
-func(list *List) get(loc int)*Node{
-	list.asset_valid_index(loc)	
-	next := list.iterator()
-	head := next()
-	for i:=0; i<loc; i++{
-		head = next()
+func(list *List) get(loc int)custom_type{
+	list.asset_valid_index(loc)
+	head := list.root	
+	for i:=0; i< loc ; i++{
+		head = head.next
 	}
-	return head
+	return head.data
 }
 
-func (list *List) contains(data custom_type)(*Node, bool){
-	next := list.iterator()
-	head := next()
-	for head.has_next() {
+func (list *List) contains(data custom_type)(*node, bool){
+	head := list.root
+	for head != nil {
 		if reflect.DeepEqual(head.data, data){
 			return head, true
 		}
-		head = next()
+		head = head.next
 	}
 
 	return nil, false
 }
 
-func (list *List) delete(data custom_type){
+func(list *List) IsPresent(data custom_type)bool{
+	_,isPresent := list.contains(data)
+	return isPresent
+}
+
+func (list *List) Delete(data custom_type){
 	node_to_delete, ok := list.contains(data)
 	if ok{
 		if node_to_delete == list.root{
@@ -85,12 +130,12 @@ func (list *List) delete(data custom_type){
 }
 
 //get the new node 
-func get_node(data custom_type, prev *Node, next *Node)*Node{
-	return &Node{data:data,prev:prev,next:next}
+func get_node(data custom_type, prev *node, next *node)*node{
+	return &node{data:data,prev:prev,next:next}
 }
 
 //insert operation to list
-func (list *List)insert(data custom_type){
+func (list *List)Insert(data custom_type){
 	node := get_node(data, nil , list.root)
 	if list.root == nil{
 		list.end  = node 
@@ -103,8 +148,8 @@ func (list *List)insert(data custom_type){
 	list.size++
 }
 
-//append operation to list
-func (list *List)append(data custom_type){
+//Append operation to list
+func (list *List)Append(data custom_type){
 	node := get_node(data, list.end , nil)
 	if list.root == nil{
 		list.root = node 
@@ -118,65 +163,46 @@ func (list *List)append(data custom_type){
 }
 
 //insert at location to list
-func(list *List)insert_at(data custom_type, loc int){
+func(list *List)InsertAt(data custom_type, loc int){
 	list.asset_valid_index(loc)
 	
 	if loc == 0{
-		list.insert(data)
+		list.Insert(data)
 		return
 	}
 	
 	if loc == list.size{
-		list.append(data)
+		list.Append(data)
 		return
 	}
 
-	next := list.iterator()
-	head := next()
+	head := list.root
 	for i := 0 ; i < loc - 1 ; i++{
-		head = next()
+		head = head.next
 	}
 	node := get_node(data, head, head.next)
 	head.next = node
 	list.size++
 }
 
-
-func (list List) iterator()func() *Node{
-	head := list.root
-	return func()*Node{
-		to_return := head
-		if head != nil{
-			head = head.next
-		}
-		return to_return
-	}
-}
-
-func(node *Node) has_next()bool{
-	return node != nil
-}
-
 func main(){
 	root := new(List)
-	root.insert(4)
-	root.insert(5)
-	root.insert(6)
-	root.insert(7)
-	root.append(3)
-	root.append(1)
-	root.insert_at(15,0)
-	root.insert_at(25,7)
-	root.insert_at([]int{1,2,3,4,5,6,7},1)
-	root.delete(12)
-	root.delete([]int{1,2,3,4,5,6,7})
+	root.Insert(4)
+	root.Insert(5)
+	root.Insert(6)
+	root.Insert(7)
+	root.Append(3)
+	root.Append(1)
+	root.InsertAt(15,0)
+	root.InsertAt(25,7)
+	root.InsertAt([]int{1,2,3,4,5,6,7},1)
+	root.Delete(12)
+	root.Delete([]int{1,2,3,4,5,6,7})
 
-	next := root.iterator()
-	head := next()
-	for head.has_next(){
-		fmt.Println(head.data)
-		head = next()
+	listIterator := root.Iterator()
+
+	for listIterator.HasNext() {
+		fmt.Println(listIterator.Next())
 	}
-
-	fmt.Println(*(root.get(100)))
+	fmt.Println(root.get(2))
 }
