@@ -3,6 +3,9 @@ package main
 import "fmt"
 import "reflect"
 
+//beware this library is not thread safe. Only one instance of list can be accessed by
+//single thread unless it is write operation
+
 // represents generic type
 type custom_type interface {}
 
