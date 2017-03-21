@@ -1,6 +1,5 @@
-package main
+package list
 
-import "fmt"
 import "reflect"
 
 //beware this library is not thread safe. Only one instance of list can be accessed by
@@ -12,15 +11,15 @@ type custom_type interface {}
 //=============================Generic data type ======================================================
 
 // interface that list implements
-type listInterface interface{
+type ListInterface interface{
 	InsertAt(data custom_type, loc int)
 	Insert (data custom_type)
 	Append(data custom_type)
 	Delete(data custom_type)
 	contains(data custom_type) (*node, bool)
 	IsPresent(data custom_type) bool
-	iterator()func() *node
-	get(loc int) custom_type
+	Get(loc int) custom_type
+	Size()int
 }
 
 // This type represent the single node of list
@@ -41,10 +40,10 @@ type List struct{
 
 //Iterator interface
 type Iterator interface{
-	Iterator()ListIterator
 	Next()custom_type
 	Prev()custom_type
 	HasNext()bool
+	HasPrev()bool
 }
 
 type ListIterator struct{
@@ -61,6 +60,11 @@ func(this *ListIterator) HasNext()bool{
 	return this.list.root != nil
 }
 
+func(this *ListIterator) HasPrev()bool{
+	return this.list.root != nil
+}
+
+
 func(this *ListIterator)Next()custom_type{
 	data := this.list.root.data
 	this.list.root = this.list.root.next
@@ -76,13 +80,17 @@ func(this *ListIterator)Prev()custom_type{
 //====================================================================List Iterator completes here =========================================
 
 
-func(list *List)asset_valid_index(ind int){
+func(list List)asset_valid_index(ind int){
 	if ind > list.size || ind < 0{
 		panic("Cannot access data pass the list size")
 	}
 }
 
-func(list *List) get(loc int)custom_type{
+func(list *List)Size()int{
+	return list.size;
+}
+
+func(list *List) Get(loc int)custom_type{
 	list.asset_valid_index(loc)
 	head := list.root	
 	for i:=0; i< loc ; i++{
@@ -186,26 +194,4 @@ func(list *List)InsertAt(data custom_type, loc int){
 	node := get_node(data, head, head.next)
 	head.next = node
 	list.size++
-}
-
-func main(){
-	root := new(List)
-	root.Insert(4)
-	root.Insert(5)
-	root.Insert(6)
-	root.Insert(7)
-	root.Append(3)
-	root.Append(1)
-	root.InsertAt(15,0)
-	root.InsertAt(25,7)
-	root.InsertAt([]int{1,2,3,4,5,6,7},1)
-	root.Delete(12)
-	root.Delete([]int{1,2,3,4,5,6,7})
-
-	listIterator := root.Iterator()
-
-	for listIterator.HasNext() {
-		fmt.Println(listIterator.Next())
-	}
-	fmt.Println(root.get(2))
 }
