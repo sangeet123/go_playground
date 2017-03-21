@@ -90,6 +90,7 @@ func TestDelete(t *testing.T){
 
 }
 
+//Testing ISPresent method
 func TestIsPresent(t *testing.T){
 	list := prepare_list()
 	values := []int{4,3,2,1}
@@ -103,7 +104,7 @@ func TestIsPresent(t *testing.T){
 	}
 }
 
-
+// Testing InsertAt method
 func TestInsertAt(t *testing.T){
 	list := prepare_list()
 	list.InsertAt(5,0)
@@ -117,6 +118,7 @@ func TestInsertAt(t *testing.T){
 	}
 }
 
+//Testing Iterator
 func TestIterator(t *testing.T){
 	list := prepare_list()
 	it := list.Iterator()
@@ -163,6 +165,87 @@ func TestIterator(t *testing.T){
 		}
 		i--
 	}
+}
+
+//Testing the validaty of lib after some sequence
+func TestList(t *testing.T){
+	list := prepare_list()
+
+	list.InsertAt(12,0);
+	list.InsertAt(14,3);
+	list.Append(21);
+	list.Insert(100);
+//============ At this point the list must be 100,12,4,3,2,14,1,21=================================//
+	
+	// checking the state of list
+	//doing some delete and insert operation interchangebly
+	
+	values := []int{100,12,4,3,14,2,1,21}
+	assertCorrectListState(list, values,t)
+
+	list.Delete(100) // 12,4,3,14,2,1,21
+	values = []int{12,4,3,14,2,1,21}
+	assertCorrectListState(list, values,t)
+
+	list.InsertAt(1201,1) // 12,1201,4,3,14,2,1,21
+	values = []int{12,1201,4,3,14,2,1,21}
+	assertCorrectListState(list, values,t)	
+	
+	list.Delete(12)//1201,4,3,14,2,1,21
+	values = []int{1201,4,3,14,2,1,21}
+	assertCorrectListState(list, values,t)	
+	
+	list.Delete(21)//1201,4,3,14,2,1
+	values = []int{1201,4,3,14,2,1}
+	assertCorrectListState(list, values,t)	
+
+	list.Append(1202)//1201,4,3,14,2,1
+	values = []int{1201,4,3,14,2,1,1202}
+	assertCorrectListState(list, values,t)	
+
+	list.Delete(2)//1201,4,3,14,1,1202
+	values = []int{1201,4,3,14,1,1202}
+	assertCorrectListState(list, values,t)
+
+	list.InsertAt(1500,3)	
+	values = []int{1201,4,3,1500,14,1,1202}
+	assertCorrectListState(list, values, t)
+
+	list.InsertAt(1505,5)	
+	values = []int{1201,4,3,1500,14,1505,1,1202}
+	assertCorrectListState(list, values, t)
+
+	// Ensure alfter all the operations (Insert, InsertAt, Delete) mixup the list is in consistent state
+	assertCorrectBackwardIteration(list, values, t)
+}
+
+func assertCorrectBackwardIteration(list *List, values []int, t *testing.T){
+	i := len(values) - 1
+	it := list.Iterator()
+
+	for j := i ; j>0 ; j--{
+		it.Next()
+	}
+
+	for it.HasPrev(){
+		val := it.Prev()
+		if values[i] != val{
+			t.Error("Expected ", values[i], " but received ", val)
+		}
+		i--
+	}
+}
+
+func assertCorrectListState(list *List, values []int, t *testing.T){
+	it := list.Iterator()
+	i := 0
+	for it.HasNext(){
+		val := it.Next()
+		if values[i] != val{
+			t.Error("Expected ", values[i], " but received ", val)
+		}
+		i++
+	}	
 }
 
 

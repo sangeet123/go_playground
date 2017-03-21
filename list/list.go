@@ -192,6 +192,7 @@ func(list *List)InsertAt(data custom_type, loc int){
 		head = head.next
 	}
 	node := get_node(data, head, head.next)
+	head.next.prev = node
 	head.next = node
 	list.size++
 }
