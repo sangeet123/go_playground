@@ -15,6 +15,29 @@ func TestMultiplyAllButItself(t *testing.T){
 	}
 }
 
+func TestMultiplyAllButItselfHaveZeroElement(t *testing.T){
+	values := []int{1,2,3,4,0,6,7,0}
+	expected := []int{0,0,0,0,0,0,0,0}
+
+	received := multiply_all_but_itself(values)
+
+	if !reflect.DeepEqual(received,expected){
+		t.Error("Expected ", expected, " but received ", received)
+	}
+}
+
+func TestMultiplyAllButItselfHaveSingleZeroElement(t *testing.T){
+	values := []int{1,2,3,4,5,6,7,0}
+	expected := []int{0,0,0,0,0,0,0,5040}
+
+	received := multiply_all_but_itself(values)
+
+	if !reflect.DeepEqual(received,expected){
+		t.Error("Expected ", expected, " but received ", received)
+	}
+}
+
+
 func TestMultiplyAllButItselfEmptyArray(t *testing.T){
 	values := []int{}
 	expected := []int{}
