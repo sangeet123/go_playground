@@ -2,7 +2,7 @@ package finddups
 
 type Integers []int
 
-func get_first_dups(nums Integers) int {
+func GetFirstDup(nums Integers) int {
 	for _, val := range nums {
 		ind := abs(val) - 1
 

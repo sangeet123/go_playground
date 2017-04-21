@@ -3,7 +3,7 @@ package compressstring
 import "strconv"
 
 // This is O(2n) solution
-func compress(word string) string {
+func Compress(word string) string {
 	char_map := map[rune]int{}
 
 	for _, val := range word {
@@ -26,7 +26,7 @@ func compress(word string) string {
 }
 
 // can be done in a single pass using following approach
-func compress_efficient(word string) string {
+func CompressEfficient(word string) string {
 	if len(word) < 2 {
 		return word
 	}
