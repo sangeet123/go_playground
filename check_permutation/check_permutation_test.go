@@ -2,32 +2,32 @@ package permutationcheck
 
 import "testing"
 
-func TestValidPermutationStrings(t *testing.T){
-	if !CheckPermutation("Hello", "oleHl"){
+func TestValidPermutationStrings(t *testing.T) {
+	if !CheckPermutation("Hello", "oleHl") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
-func TestValidPermutationStringsWithUpperAndLowerCaseCharacters(t *testing.T){
-	if !CheckPermutation("HELLO", "olehl"){
+func TestValidPermutationStringsWithUpperAndLowerCaseCharacters(t *testing.T) {
+	if !CheckPermutation("HELLO", "olehl") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
-func TestInvalidValidPermutationStrings(t *testing.T){
-	if CheckPermutation("HELLLO", "oloehl"){
+func TestInvalidValidPermutationStrings(t *testing.T) {
+	if CheckPermutation("HELLLO", "oloehl") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
-func TestValidPermutationEmptyStrings(t *testing.T){
-	if !CheckPermutation("", ""){
+func TestValidPermutationEmptyStrings(t *testing.T) {
+	if !CheckPermutation("", "") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
-func TestInValidPermutationUnEqualLengthStrings(t *testing.T){
-	if CheckPermutation("HELLO", "olehll"){
+func TestInValidPermutationUnEqualLengthStrings(t *testing.T) {
+	if CheckPermutation("HELLO", "olehll") {
 		t.Error("Expected true, but got", false)
 	}
 }
