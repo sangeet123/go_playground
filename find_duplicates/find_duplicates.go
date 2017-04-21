@@ -1,10 +1,10 @@
 package finddups
 
-func get_first_dups(nums []int)int{
-	for _, val := range nums{
+func get_first_dups(nums []int) int {
+	for _, val := range nums {
 		ind := abs(val) - 1
 
-		if nums[ind] < 0{
+		if nums[ind] < 0 {
 			return ind + 1
 		}
 
@@ -14,7 +14,7 @@ func get_first_dups(nums []int)int{
 }
 
 func abs(val int) int {
-	if val >= 0{
+	if val >= 0 {
 		return val
 	}
 	return -val

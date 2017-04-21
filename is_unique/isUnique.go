@@ -1,13 +1,12 @@
 package uniquechar
 
-func IsUnique(word string) bool{
+func IsUnique(word string) bool {
 	charMap := make(map[rune]bool)
 	for _, val := range word {
-		 _, ok := charMap[val]
-		 if(ok){
-		 	return false
-		 }
-		 charMap[val] = true
+		if _, ok := charMap[val]; ok {
+			return false
+		}
+		charMap[val] = true
 	}
 	return true
 }
