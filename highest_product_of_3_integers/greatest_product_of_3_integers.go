@@ -2,15 +2,19 @@ package highestproduceofthreeintegers
 
 import "sort"
 
-//import "fmt"
+type Integers []int
 
-func get_highest_product(nums []int) int {
+func (slice Integers) Len() int {
+	return len(slice)
+}
 
-	if len(nums) < 3 {
+func get_highest_product(nums Integers) int {
+
+	if nums.Len() < 3 {
 		panic("no of elements should be greater than equal to 3")
 	}
 
-	if len(nums) == 3 {
+	if nums.Len() == 3 {
 		return nums[0] * nums[1] * nums[2]
 	}
 
@@ -22,7 +26,7 @@ func get_highest_product(nums []int) int {
 	sort.Ints(first_three)
 	max_1, max_2, max_3 := first_three[2], first_three[1], first_three[0]
 	min_1, min_2 := first_three[0], first_three[1]
-	for i := 3; i < len(nums); i++ {
+	for i := 3; i < nums.Len(); i++ {
 		// maintain three largest
 		if max_1 < nums[i] {
 			max_1, max_2, max_3 = nums[i], max_1, max_2
