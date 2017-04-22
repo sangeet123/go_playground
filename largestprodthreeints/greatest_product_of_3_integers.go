@@ -1,4 +1,4 @@
-package highestproduceofthreeintegers
+package largestprodthreeints
 
 import "sort"
 
@@ -8,7 +8,7 @@ func (slice Integers) Len() int {
 	return len(slice)
 }
 
-func get_highest_product(nums Integers) int {
+func GetLargestProd(nums Integers) int {
 
 	if nums.Len() < 3 {
 		panic("no of elements should be greater than equal to 3")

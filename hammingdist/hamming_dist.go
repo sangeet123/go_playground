@@ -1,4 +1,4 @@
-package hammingdistance
+package hammingdist
 
 // returns how many bits are set on a number
 func GetNoOfOnes(no int) int {
