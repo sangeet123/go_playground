@@ -1,4 +1,4 @@
-package multiplyallbutitself
+package multiplyallbutself
 
 type Integers []int
 
@@ -6,7 +6,7 @@ func (slice Integers) Len() int {
 	return len(slice)
 }
 
-func multiply_all_but_itself(nums Integers) Integers {
+func MultiplyAllButSelf(nums Integers) Integers {
 
 	length := nums.Len()
 

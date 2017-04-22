@@ -12,7 +12,7 @@ func check_if_convertible(word1 string, word2 string) bool {
 }
 
 //char sensitive
-func is_one_edit_away(src string, dest string) bool {
+func IsOneEditAway(src string, dest string) bool {
 
 	length_diff := len(src) - len(dest)
 

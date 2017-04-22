@@ -8,7 +8,7 @@ func (slice Integers) Len() int {
 	return len(slice)
 }
 
-func coinexchange(total int, coins Integers) int {
+func GetTotalWays(total int, coins Integers) int {
 
 	n := coins.Len()
 	if total == 0 || n == 0 {
