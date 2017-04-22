@@ -1,11 +1,11 @@
-package mergeMeetings
+package mergemeetings
 
 import "sort"
 
 //defining Meeting type
 type Meeting struct {
-	start int
-	end   int
+	Start int
+	End   int
 }
 
 // defining type make us to define collection type
@@ -18,7 +18,7 @@ func (slice Meetings) Len() int {
 }
 
 func (slice Meetings) Less(i, j int) bool {
-	return slice[i].start < slice[j].start || (slice[i].start == slice[j].start && slice[i].end < slice[j].end)
+	return slice[i].Start < slice[j].Start || (slice[i].Start == slice[j].Start && slice[i].End < slice[j].End)
 }
 
 func (slice Meetings) Swap(i, j int) {
@@ -36,10 +36,10 @@ func MergeMeetings(ranges Meetings) Meetings {
 	cur_pos := 0
 	result = append(result, ranges[0])
 	for i := 1; i < len(ranges); i++ {
-		if result[cur_pos].end >= ranges[i].start && result[cur_pos].end < ranges[i].end {
-			result[cur_pos].end = ranges[i].end
+		if result[cur_pos].End >= ranges[i].Start && result[cur_pos].End < ranges[i].End {
+			result[cur_pos].End = ranges[i].End
 
-		} else if result[cur_pos].end < ranges[i].end {
+		} else if result[cur_pos].End < ranges[i].End {
 			result = append(result, ranges[i])
 			cur_pos++
 		}
