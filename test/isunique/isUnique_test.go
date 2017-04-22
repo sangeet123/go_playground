@@ -1,27 +1,30 @@
-package uniquechar
+package uniquechartest
 
-import "testing"
+import (
+	"go_playground/uniquechar"
+	"testing"
+)
 
 func TestStringHavingUniqueChar(t *testing.T) {
-	if !IsUnique("abcdef") {
+	if !uniquechar.IsUnique("abcdef") {
 		t.Error("Expected true, got ", false)
 	}
 }
 
 func TestStringNotHavingUniqueChar(t *testing.T) {
-	if IsUnique("Hello") {
+	if uniquechar.IsUnique("Hello") {
 		t.Error("Expected false, got", true)
 	}
 }
 
 func TestEmptyString(t *testing.T) {
-	if !IsUnique("") {
+	if !uniquechar.IsUnique("") {
 		t.Error("Expected true, got", false)
 	}
 }
 
 func TestOneCharString(t *testing.T) {
-	if !IsUnique("a") {
+	if !uniquechar.IsUnique("a") {
 		t.Error("Expected true, got", false)
 	}
 }

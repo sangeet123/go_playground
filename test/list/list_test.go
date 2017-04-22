@@ -1,12 +1,15 @@
-package list
+package listtest
 
-import "testing"
+import (
+	"go_playground/list"
+	"testing"
+)
 
 //ensure all list interface has been implemented
-var _ ListInterface = (*List)(nil)
+var _ list.ListInterface = (*list.List)(nil)
 
-func prepare_list() *List {
-	list := new(List)
+func prepare_list() *list.List {
+	list := new(list.List)
 	list.Insert(1)
 	list.Insert(2)
 	list.Insert(3)
@@ -35,7 +38,7 @@ func TestInsert(t *testing.T) {
 
 // Testing append method
 func TestAppend(t *testing.T) {
-	list := new(List)
+	list := new(list.List)
 	list.Append(1)
 	list.Append(2)
 	list.Append(3)
@@ -219,7 +222,7 @@ func TestList(t *testing.T) {
 	assertCorrectBackwardIteration(list, values, t)
 }
 
-func assertCorrectBackwardIteration(list *List, values []int, t *testing.T) {
+func assertCorrectBackwardIteration(list *list.List, values []int, t *testing.T) {
 	i := len(values) - 1
 	it := list.Iterator()
 
@@ -236,7 +239,7 @@ func assertCorrectBackwardIteration(list *List, values []int, t *testing.T) {
 	}
 }
 
-func assertCorrectListState(list *List, values []int, t *testing.T) {
+func assertCorrectListState(list *list.List, values []int, t *testing.T) {
 	it := list.Iterator()
 	i := 0
 	for it.HasNext() {
