@@ -8,7 +8,7 @@ import "unicode"
 // if char not found insert into map
 // if char found delete that char
 // After the loop ends check if map has zero or singl entry
-func is_permutation_palindrum(word string) bool {
+func IsPermutationPalindrum(word string) bool {
 	char_map := map[rune]bool{}
 
 	for _, char := range word {
