@@ -1,6 +1,6 @@
 package teemo
 
-func findPoisonedDuration(timeSeries []int, duration int) int {
+func GetPoisonedDuration(timeSeries []int, duration int) int {
 
 	poisoned_for := 0
 	affect_till := 0

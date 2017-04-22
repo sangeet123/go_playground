@@ -1,8 +1,8 @@
-package rotated
+package rotatedstr
 
 import "strings"
 
-func is_rotated_of(word string, rotated string) bool {
+func IsRotated(word string, rotated string) bool {
 	if len(word) != len(rotated) {
 		return false
 	}

@@ -1,39 +1,42 @@
-package validcapital
+package validcaptest
 
-import "testing"
+import (
+	"go_playground/validcap"
+	"testing"
+)
 
 func TestValidCapitalWithAllSmallCase(t *testing.T) {
-	if !ValidCapital("helloworld") {
+	if !validcap.ValidCapital("helloworld") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
 func TestValidCapitalWithAllUpperCase(t *testing.T) {
-	if !ValidCapital("HELLOWORLD") {
+	if !validcap.ValidCapital("HELLOWORLD") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
 func TestValidCapitalWithFirstCharUpper(t *testing.T) {
-	if !ValidCapital("Helloworld") {
+	if !validcap.ValidCapital("Helloworld") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
 func TestInValidCapitalWithWhiteSpace(t *testing.T) {
-	if ValidCapital("Hello world") {
+	if validcap.ValidCapital("Hello world") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
 func TestInValidCapital(t *testing.T) {
-	if ValidCapital("HelloWorld") {
+	if validcap.ValidCapital("HelloWorld") {
 		t.Error("Expected true, but got", false)
 	}
 }
 
 func TestInValidCapitalEmptyString(t *testing.T) {
-	if !ValidCapital("") {
+	if !validcap.ValidCapital("") {
 		t.Error("Expected true, but got", false)
 	}
 }

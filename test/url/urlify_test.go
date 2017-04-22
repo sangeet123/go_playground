@@ -1,6 +1,9 @@
-package url
+package urltest
 
-import "testing"
+import (
+	"go_playground/url"
+	"testing"
+)
 
 // Note we have enough space on an array to replace space by %20
 // We do not do any validation here
@@ -16,30 +19,30 @@ func convertToString(url []uint8) string {
 }
 
 func TestCharArrayWithSpace(t *testing.T) {
-	url := []uint8{'a', ' ', 'b', ' ', 'c', 'e', 'f', 'g', ' ', ' ', ' ', ' '}
+	URL := []uint8{'a', ' ', 'b', ' ', 'c', 'e', 'f', 'g', ' ', ' ', ' ', ' '}
 	expected := "a%20b%20cefg"
-	Urlify(url, len(url))
-	received := convertToString(url)
+	url.Urlify(URL, len(URL))
+	received := convertToString(URL)
 	if expected != received {
 		t.Error("Expected ", expected, " but got", received)
 	}
 }
 
 func TestCharArrayWithoutSpace(t *testing.T) {
-	url := []uint8{'a', 'b', 'c', 'e', 'f', 'g'}
+	URL := []uint8{'a', 'b', 'c', 'e', 'f', 'g'}
 	expected := "abcefg"
-	Urlify(url, len(url))
-	received := convertToString(url)
+	url.Urlify(URL, len(URL))
+	received := convertToString(URL)
 	if expected != received {
 		t.Error("Expected ", expected, " but got", received)
 	}
 }
 
 func TestEmptyCharArray(t *testing.T) {
-	url := []uint8{}
+	URL := []uint8{}
 	expected := ""
-	Urlify(url, len(url))
-	received := convertToString(url)
+	url.Urlify(URL, len(URL))
+	received := convertToString(URL)
 	if expected != received {
 		t.Error("Expected ", expected, " but got", received)
 	}

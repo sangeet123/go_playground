@@ -1,12 +1,15 @@
 package zeromatrix
 
-import "testing"
-import "reflect"
+import (
+	"go_playground/zeromatrix"
+	"reflect"
+	"testing"
+)
 
 func TestZeroMatrixAllZero(t *testing.T) {
 	input := [][]int{{0, 0, 0}, {1, 1, 1}, {0, 0, 0}}
 	output := [][]int{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
-	zero_matrix(input)
+	zeromatrix.ZeroMatrix(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -15,7 +18,7 @@ func TestZeroMatrixAllZero(t *testing.T) {
 func TestZeroMatrixFirstColumnThirdRowSet(t *testing.T) {
 	input := [][]int{{1, 0, 0}, {1, 0, 0}, {1, 1, 1}}
 	output := [][]int{{0, 0, 0}, {0, 0, 0}, {1, 0, 0}}
-	zero_matrix(input)
+	zeromatrix.ZeroMatrix(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -24,7 +27,7 @@ func TestZeroMatrixFirstColumnThirdRowSet(t *testing.T) {
 func TestZeroMatrixAllSet(t *testing.T) {
 	input := [][]int{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}
 	output := [][]int{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}
-	zero_matrix(input)
+	zeromatrix.ZeroMatrix(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -33,7 +36,7 @@ func TestZeroMatrixAllSet(t *testing.T) {
 func TestZeroMatrixExtremeExampleRowSet(t *testing.T) {
 	input := [][]int{{1, 1, 1}, {1, 1, 1}, {0, 1, 1}}
 	output := [][]int{{0, 1, 1}, {0, 1, 1}, {0, 0, 0}}
-	zero_matrix(input)
+	zeromatrix.ZeroMatrix(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -42,7 +45,7 @@ func TestZeroMatrixExtremeExampleRowSet(t *testing.T) {
 func TestZeroMatrixOtherExtremeExampleRowSet(t *testing.T) {
 	input := [][]int{{0, 1, 0}, {1, 1, 1}, {0, 1, 0}}
 	output := [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}
-	zero_matrix(input)
+	zeromatrix.ZeroMatrix(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -53,7 +56,7 @@ func TestZeroMatrixOtherExtremeExampleRowSet(t *testing.T) {
 func TestInplaceZeroMatrixAllZero(t *testing.T) {
 	input := [][]int{{0, 0, 0}, {1, 1, 1}, {0, 0, 0}}
 	output := [][]int{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
-	zero_matrix_inplace(input)
+	zeromatrix.ZeroMatrixInplace(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -62,7 +65,7 @@ func TestInplaceZeroMatrixAllZero(t *testing.T) {
 func TestInplaceZeroMatrixFirstColumnThirdRowSet(t *testing.T) {
 	input := [][]int{{1, 0, 0}, {1, 0, 0}, {1, 1, 1}}
 	output := [][]int{{0, 0, 0}, {0, 0, 0}, {1, 0, 0}}
-	zero_matrix_inplace(input)
+	zeromatrix.ZeroMatrixInplace(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -71,7 +74,7 @@ func TestInplaceZeroMatrixFirstColumnThirdRowSet(t *testing.T) {
 func TestInplaceZeroMatrixAllSet(t *testing.T) {
 	input := [][]int{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}
 	output := [][]int{{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}
-	zero_matrix_inplace(input)
+	zeromatrix.ZeroMatrixInplace(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -80,7 +83,7 @@ func TestInplaceZeroMatrixAllSet(t *testing.T) {
 func TestInplaceZeroMatrixExtremeExampleRowSet(t *testing.T) {
 	input := [][]int{{1, 1, 1}, {1, 1, 1}, {0, 1, 1}}
 	output := [][]int{{0, 1, 1}, {0, 1, 1}, {0, 0, 0}}
-	zero_matrix_inplace(input)
+	zeromatrix.ZeroMatrixInplace(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}
@@ -89,7 +92,7 @@ func TestInplaceZeroMatrixExtremeExampleRowSet(t *testing.T) {
 func TestInplaceZeroMatrixOtherExtremeExampleRowSet(t *testing.T) {
 	input := [][]int{{0, 1, 0}, {1, 1, 1}, {0, 1, 0}}
 	output := [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}
-	zero_matrix_inplace(input)
+	zeromatrix.ZeroMatrixInplace(input)
 	if !reflect.DeepEqual(input, output) {
 		t.Error("Expected ", output, " but got", input)
 	}

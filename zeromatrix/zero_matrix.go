@@ -1,6 +1,6 @@
 package zeromatrix
 
-func zero_matrix(arr [][]int) {
+func ZeroMatrix(arr [][]int) {
 	if len(arr) == 0 {
 		return
 	}
@@ -43,7 +43,7 @@ func initialize(arr []int, val int) {
 
 // This is way too complicated
 // Taking memory O(2n) is more good enough
-func zero_matrix_inplace(arr [][]int) {
+func ZeroMatrixInplace(arr [][]int) {
 	set_first_row := true
 	set_first_column := true
 

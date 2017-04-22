@@ -1,4 +1,4 @@
-package validcapital
+package validcap
 
 import "unicode"
 

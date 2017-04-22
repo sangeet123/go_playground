@@ -2,7 +2,7 @@ package rotateimage
 
 // This function works for rectangular image where
 // height and width are not of equal dimension
-func rotateimageby90(img [][]int) [][]int {
+func RotateImgBy90(img [][]int) [][]int {
 	if len(img) == 0 {
 		return img
 	}
@@ -27,7 +27,7 @@ func assert_square_matrix(arr [][]int) {
 // This function is inplace for square image
 // There no return type since original image will be
 // modified
-func rotatedimgby90inplace(img [][]int) {
+func RotateImgBy90InPlace(img [][]int) {
 	assert_square_matrix(img)
 	start := 0
 	end := len(img) - 1
@@ -49,7 +49,7 @@ func rotatedimgby90inplace(img [][]int) {
 // This function is inplace for square image
 // There no return type since original image will be
 // modified
-func rotatedimgby90inplaceUsingTranspose(img [][]int) {
+func RotateImgBy90InPlaceUsingTranspose(img [][]int) {
 	assert_square_matrix(img)
 	perform_inplace_matrix_transpose(img)
 	swap_matrix_columns(img)
