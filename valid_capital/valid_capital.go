@@ -8,24 +8,24 @@ import "unicode"
 // if a word has all small case letter it is a valid word eg "hello"
 // words with leading or trailing whitespaces or has whitespaces in between characters are not valid eg "h ello"
 // the credit for this question goes to leetcode
-func ValidCapital(word string) bool{
-	
-	if len(word) == 0{
+func ValidCapital(word string) bool {
+
+	if len(word) == 0 {
 		return true
 	}
 
 	allUpper := func(word string) (bool, int) {
-		for i, char := range word{
-			if !unicode.IsUpper(char){
+		for i, char := range word {
+			if !unicode.IsUpper(char) {
 				return false, i
 			}
 		}
-		return true,-1
+		return true, -1
 	}
 
 	allLower := func(word string) (bool, int) {
-		for i, char := range word{
-			if !unicode.IsLower(char){
+		for i, char := range word {
+			if !unicode.IsLower(char) {
 				return false, i
 			}
 		}
@@ -34,7 +34,7 @@ func ValidCapital(word string) bool{
 	}
 
 	firstCharUpper := func(word string) (bool, int) {
-		if(!unicode.IsUpper(rune(word[0]))){
+		if !unicode.IsUpper(rune(word[0])) {
 			return false, 0
 		}
 		ok, index := allLower(word[1:])
@@ -43,16 +43,16 @@ func ValidCapital(word string) bool{
 
 	isValid, index := firstCharUpper(word)
 
-	if(isValid){
+	if isValid {
 		return true
 	}
 
-	if(index == 1){
+	if index == 1 {
 		isValid, _ = allUpper(word)
-		return true		
+		return true
 	}
 
-	if (index == 0){
+	if index == 0 {
 		isValid, _ = allLower(word)
 		return true
 	}

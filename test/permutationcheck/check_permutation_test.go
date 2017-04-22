@@ -5,7 +5,6 @@ import (
 	"testing"
 )
 
-
 func TestValidPermutationStrings(t *testing.T) {
 	if !permutationcheck.CheckPermutation("Hello", "oleHl") {
 		t.Error("Expected true, but got", false)

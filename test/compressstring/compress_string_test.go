@@ -5,7 +5,6 @@ import (
 	"testing"
 )
 
-
 func TestCompressableStringEfficient(t *testing.T) {
 	test_word := "aaabbb"
 	expected := "a3b3"
