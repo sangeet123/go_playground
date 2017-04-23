@@ -1,4 +1,4 @@
-package listtest
+package removedupstest
 
 import (
 	"go_playground/list"
