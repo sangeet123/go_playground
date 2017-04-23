@@ -1,8 +1,7 @@
-package listprobtest
+package listtest
 
 import (
 	"go_playground/list"
-	"go_playground/listprob"
 	"testing"
 )
 
@@ -21,11 +20,11 @@ func prepare_list() *list.List {
 
 func TestRemoveDups(t *testing.T) {
 	list := prepare_list()
-	dupsdelete := listprob.RemoveDups(list)
-	it := dupsdelete.Iterator()
+	list.RemoveDupsInplace()
+	it := list.Iterator()
 	values := []int{1, 2, 3, 4}
 
-	if dupsdelete.Size() != 4 {
+	if list.Size() != 4 {
 		t.Error("Expected 4 but got ", list.Size())
 	}
 
@@ -37,11 +36,11 @@ func TestRemoveDups(t *testing.T) {
 	}
 }
 
-func TestRemoveDupsNullList(t *testing.T) {
+func TestRemoveDupsEmptyList(t *testing.T) {
 	list := new(list.List)
-	dupsdelete := listprob.RemoveDups(list)
+	list.RemoveDupsInplace()
 
-	if dupsdelete.Size() != 0 {
+	if list.Size() != 0 {
 		t.Error("Expected 4 but got ", list.Size())
 	}
 }
