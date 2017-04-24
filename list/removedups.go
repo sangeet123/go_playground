@@ -15,8 +15,12 @@ func (list *List) RemoveDupsInplace() {
 			prev.next = next.next
 			toDelete := next
 			next = next.next
+			if next != nil {
+				next.prev = prev
+			}
 			toDelete.prev = nil
 			toDelete.next = nil
+			toDelete = nil
 			list.size--
 		}
 	}

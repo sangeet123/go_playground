@@ -34,6 +34,21 @@ func TestRemoveDups(t *testing.T) {
 			t.Error("Expected ", val, " but received ", val_in_list)
 		}
 	}
+
+	//verify state
+	it = list.Iterator()
+
+	for i := 1; i <= 3; i++ {
+		it.Next()
+	}
+
+	for i := 3; i >= 0; i-- {
+		val_in_list := it.Prev()
+		if values[i] != val_in_list {
+			t.Error("Expected ", values[i], " but received ", val_in_list)
+		}
+	}
+
 }
 
 func TestRemoveDupsEmptyList(t *testing.T) {
