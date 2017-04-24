@@ -25,6 +25,16 @@ func TestNonCompressStringEfficient(t *testing.T) {
 	}
 }
 
+func TestNonCompressUtf8StringEfficient(t *testing.T) {
+	test_word := "ここここんんんん"
+	expected := "こ4ん4"
+	received := compressstring.CompressEfficient(test_word)
+
+	if received != expected {
+		t.Error("Expected ", expected, "but got ", received)
+	}
+}
+
 func TestEmptyStringEfficient(t *testing.T) {
 	test_word := ""
 	expected := ""
@@ -48,6 +58,16 @@ func TestCompressableStringLessEfficient(t *testing.T) {
 func TestNonCompressStringLessEfficient(t *testing.T) {
 	test_word := "ab"
 	expected := "ab"
+	received := compressstring.Compress(test_word)
+
+	if received != expected {
+		t.Error("Expected ", expected, "but got ", received)
+	}
+}
+
+func TestNonCompressUtf8StringLessEfficient(t *testing.T) {
+	test_word := "ここここんんんん"
+	expected := "こ4ん4"
 	received := compressstring.Compress(test_word)
 
 	if received != expected {
