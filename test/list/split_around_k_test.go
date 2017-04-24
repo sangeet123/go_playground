@@ -21,7 +21,7 @@ func TestSplitAroundK(t *testing.T) {
 	list := prepare_list()
 	list.SplitAroundK(6)
 	it := list.Iterator()
-	values := []int{4,5,1,2,3,2,6}
+	values := []int{4, 5, 1, 2, 3, 2, 6}
 
 	if list.Size() != 7 {
 		t.Error("Expected 7 but got ", list.Size())
@@ -53,9 +53,7 @@ func TestSplitAroundKSingleItemList(t *testing.T) {
 		t.Error("Expected 4 but got ", list.Size())
 	}
 
-	if list.Get(0) != 1{
+	if list.Get(0) != 1 {
 		t.Error("Expected 1 but got ", list.Get(0))
 	}
 }
-
-
