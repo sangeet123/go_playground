@@ -18,8 +18,7 @@ func Compress(word string) string {
 	var compressed bytes.Buffer
 	for _, val := range word {
 		if count, ok := char_map[val]; ok {
-			compressed.WriteString(string(val))
-			fmt.Fprintf(&compressed, "%d", count)
+			updateCompressedString(&compressed, val, count)
 		}
 		delete(char_map, val)
 	}
@@ -43,8 +42,7 @@ func CompressEfficient(word string) string {
 	prevChar, width := utf8.DecodeRuneInString(word[0:])
 	for _, val := range word[width:] {
 		if val != prevChar {
-			compressed.WriteString(string(prevChar))
-			fmt.Fprintf(&compressed, "%d", count)
+			updateCompressedString(&compressed, prevChar, count)
 			prevChar = val
 			count = 1
 		} else {
@@ -52,8 +50,7 @@ func CompressEfficient(word string) string {
 		}
 	}
 
-	compressed.WriteString(string(prevChar))
-	fmt.Fprintf(&compressed, "%d", count)
+	updateCompressedString(&compressed, prevChar, count)
 	compressedString := compressed.String()
 
 	if len(compressedString) < len(word) {
@@ -61,4 +58,9 @@ func CompressEfficient(word string) string {
 	}
 
 	return word
+}
+
+func updateCompressedString(compressed *bytes.Buffer, prevChar rune, count int) {
+	compressed.WriteString(string(prevChar))
+	fmt.Fprintf(compressed, "%d", count)
 }
