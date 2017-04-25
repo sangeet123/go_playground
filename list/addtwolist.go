@@ -21,6 +21,14 @@ func AddList(l1, l2 *List) *List {
 	sumList := new(List)
 	carry := 0
 
+	// using or condition here and
+	// again checking for HasPrev() on
+	// a body of for loop is to make sure
+	// that we do not have null pointer.
+	// We could have done this using other
+	// approach which could avoid the use
+	// of HasPrev inside the body but its
+	// debatable.
 	for it1.HasPrev() || it2.HasPrev() {
 		no1 := 0
 		no2 := 0
