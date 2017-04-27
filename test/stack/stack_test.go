@@ -24,6 +24,32 @@ func TestStackOperations(t *testing.T) {
 		t.Error("Expected size of 0 but got ", s.Size())
 	}
 
+	if s.IsEmpty() != true {
+		t.Error("Expected true but got false")
+	}
+
+	//poping from empty stack should result in error
+	defer func() {
+		if r := recover(); r == nil {
+			t.Error("no error ocurred")
+		}
+	}()
+
+	s.Pop()
+
+}
+
+func TestOperationsForEmptyStackOperations(t *testing.T) {
+	s := stack.NewStack()
+
+	if s.Size() != 0 {
+		t.Error("Expected size of 0 but got ", s.Size())
+	}
+
+	if s.IsEmpty() != true {
+		t.Error("Expected true but got false")
+	}
+
 	//poping from empty stack should result in error
 	defer func() {
 		if r := recover(); r == nil {
