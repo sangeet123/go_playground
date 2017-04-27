@@ -13,7 +13,8 @@ func TestStackOperations(t *testing.T) {
 	}
 
 	for i := 9; i >= 0; i-- {
-		data := s.Pop()
+		data := s.Peek()
+		s.Pop()
 
 		if data != i {
 			t.Error("Expected ", i, " but got ", data)

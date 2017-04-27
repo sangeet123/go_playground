@@ -19,6 +19,15 @@ func NewStack() *stack {
 type stack struct {
 	data []custom_type
 	top  int
+	min  *stack
+}
+
+func (this stack) Peek() custom_type {
+	if this.Size() == 0 {
+		panic("stack is empty")
+	}
+
+	return this.data[this.top]
 }
 
 func (this stack) Size() int {
