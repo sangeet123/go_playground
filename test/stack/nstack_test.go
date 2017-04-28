@@ -6,17 +6,17 @@ import (
 )
 
 func TestStackOperations(t *testing.T) {
-	s := stack.NewNStack(4,20)
+	s := stack.NewNStack(4, 20)
 
-	s.Push(0,12)
-	s.Push(1,13)
-	s.Push(2,14)
-	s.Push(3,15)
+	s.Push(0, 12)
+	s.Push(1, 13)
+	s.Push(2, 14)
+	s.Push(3, 15)
 
-	s.Push(0,16)
-	s.Push(1,17)
-	s.Push(2,18)
-	s.Push(3,19)
+	s.Push(0, 16)
+	s.Push(1, 17)
+	s.Push(2, 18)
+	s.Push(3, 19)
 
 	val := s.Pop(0)
 
@@ -39,7 +39,6 @@ func TestStackOperations(t *testing.T) {
 		t.Error("Expected 19 but got ", val)
 	}
 
-
 	val = s.Pop(0)
 
 	if val != 12 {
@@ -60,7 +59,5 @@ func TestStackOperations(t *testing.T) {
 	if val != 15 {
 		t.Error("Expected 15 but got ", val)
 	}
-
-
 
 }
