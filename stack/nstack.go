@@ -11,7 +11,7 @@ type NStack struct {
 func NewNStack(n, size int) *NStack {
 	nStack := new(NStack)
 	nStack.no_of_stack = n
-	nStack.data = make([]custom_type, size)
+	nStack.data = make([]custom_type, size, size)
 	nStack.top_of_stack = make([][]int, n)
 	nStack.next_free = make([]int, size)
 	for i := 0; i < size-1; i++ {

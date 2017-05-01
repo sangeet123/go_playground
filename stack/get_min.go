@@ -1,35 +1,48 @@
 package stack
 
-func (this stack) GetMinInt() int {
-	if this.Size() == 0 {
-		panic("Stack is empty")
-	}
+type minstack struct {
+	s   *stack
+	min *stack
+}
 
-	if this.min == nil {
-		this.min = NewStack()
-		this.min.Push(this.data[0])
-	}
+func NewMinStack(capacity int) *minstack {
+	minstack := new(minstack)
+	minstack.s = NewStack(capacity)
+	minstack.min = NewStack(capacity)
+	return minstack
+}
 
-	if this.min.Size() > this.Size() {
-		this.min.data = this.min.data[:this.top+1]
-		this.min.top = this.top
-	}
+func (this minstack) Size() {
+	this.s.Size()
+}
 
-	if this.min.Size() < this.Size() {
-		for i := this.min.top; i < this.Size(); i++ {
-			min, ok := this.min.Peek().(int)
-			if !ok {
-				this.min = nil
-				panic("Stack has items other than integer")
-			}
-
-			if min < this.data[i].(int) {
-				this.min.Push(min)
-			} else {
-				this.min.Push(this.data[i])
-			}
+// Only allowing to push integer
+// Can be extended to any type
+func (this minstack) Push(data int) {
+	this.s.Push(data)
+	dataToPush := data
+	if !this.min.IsEmpty() {
+		topData := this.min.Peek().(int)
+		if topData < data {
+			dataToPush = topData
 		}
 	}
+	this.min.Push(dataToPush)
+}
 
+func (this minstack) Pop() int {
+	this.min.Pop()
+	return this.s.Pop().(int)
+}
+
+func (this minstack) GetMinInt() int {
 	return this.min.Peek().(int)
+}
+
+func (this minstack) IsEmpty() bool {
+	return this.s.IsEmpty()
+}
+
+func (this minstack) IsFull() bool {
+	return this.s.IsFull()
 }

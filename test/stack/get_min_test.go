@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetMinIntOp(t *testing.T) {
-	s := stack.NewStack()
+	s := stack.NewMinStack(10)
 	valuesInStack := []int{3, 4, 5, 1, 0, 2, -1, -2, -3, 4}
 	minValues := []int{3, 3, 3, 1, 0, 0, -1, -2, -3, -3}
 
@@ -14,25 +14,10 @@ func TestGetMinIntOp(t *testing.T) {
 		s.Push(val)
 	}
 
-	i := 9
-	for i >= 5 {
+	for i := 9; i >= 0; i-- {
 		if s.GetMinInt() != minValues[i] {
 			t.Error("Expected ", minValues[i], " But got ", s.GetMinInt())
 		}
 		s.Pop()
-		i--
-	}
-
-	s.Pop()
-	s.Pop()
-	i--
-	i--
-
-	for i >= 0 {
-		if s.GetMinInt() != minValues[i] {
-			t.Error("Expected ", minValues[i], " But got ", s.GetMinInt())
-		}
-		s.Pop()
-		i--
 	}
 }
