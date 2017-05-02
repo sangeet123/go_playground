@@ -10,6 +10,8 @@ type StackInterface interface {
 	IsEmpty() bool
 }
 
+// There is no reallocation once size is fixed
+// stack wont grow pas the capacity of stack
 func NewStack(capacity int) *stack {
 	s := new(stack)
 	s.top = -1
@@ -55,7 +57,6 @@ func (this *stack) Pop() custom_type {
 		panic("stack is empty")
 	}
 	data := this.data[this.top]
-	this.data = this.data[:this.top]
 	this.top--
 	return data
 }

@@ -42,6 +42,14 @@ func TestStackOperations(t *testing.T) {
 
 	s.Pop()
 
+	s.Push(100)
+
+	data := s.Peek()
+
+	if s.Pop() != 100 {
+		t.Error("Expected ", 100, " but got ", data)
+	}
+
 }
 
 func TestOperationsForEmptyStackOperations(t *testing.T) {
