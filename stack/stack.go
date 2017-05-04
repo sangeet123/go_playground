@@ -14,14 +14,12 @@ type StackInterface interface {
 // stack wont grow pas the capacity of stack
 func NewStack(capacity int) *stack {
 	s := new(stack)
-	s.top = -1
-	s.data = make([]custom_type, capacity, capacity)
+	s.data = make([]custom_type, 0, capacity)
 	return s
 }
 
 type stack struct {
 	data []custom_type
-	top  int
 }
 
 func (this stack) Peek() custom_type {
@@ -29,15 +27,15 @@ func (this stack) Peek() custom_type {
 		panic("stack is empty")
 	}
 
-	return this.data[this.top]
+	return this.data[this.Size()-1]
 }
 
 func (this stack) Size() int {
-	return this.top + 1
+	return len(this.data)
 }
 
 func (this stack) IsEmpty() bool {
-	return this.top == -1
+	return len(this.data) == 0
 }
 
 func (this stack) IsFull() bool {
@@ -48,15 +46,14 @@ func (this *stack) Push(data custom_type) {
 	if this.IsFull() {
 		panic("stack is full")
 	}
-	this.top++
-	this.data[this.top] = data
+	this.data = append(this.data, data)
 }
 
 func (this *stack) Pop() custom_type {
-	if this.top == -1 {
+	if this.IsEmpty() {
 		panic("stack is empty")
 	}
-	data := this.data[this.top]
-	this.top--
+	data := this.data[this.Size()-1]
+	this.data = this.data[:this.Size()-1]
 	return data
 }

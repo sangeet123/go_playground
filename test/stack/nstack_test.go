@@ -87,3 +87,32 @@ func TestPushOnStackThatDoesNotExist(t *testing.T) {
 
 	s.Pop(4)
 }
+
+func TestPushAndPopOperations(t *testing.T) {
+	s := stack.NewNStack(4, 2)
+
+	s.Push(0, 1)
+	s.Push(0, 2)
+
+	val := s.Pop(0)
+	if val != 2 {
+		t.Error("Expected 1 but got ", val)
+	}
+
+	val = s.Pop(0)
+	if val != 1 {
+		t.Error("Expected 2 but got ", val)
+	}
+
+	s.Push(1, 1)
+	s.Push(2, 1)
+
+	defer func() {
+		if r := recover(); r == nil {
+			t.Error("no error ocurred")
+		}
+	}()
+
+	s.Push(3, 2)
+
+}
