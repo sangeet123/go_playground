@@ -11,7 +11,7 @@ func quickSortInt(l int, r int, nos integers) {
 	if l < r {
 
 		// randomizing quick sort so that sorted array works with
-		// expected run time of
+		// expected run time of O(nlogn)
 		randIndex := getRandomIntInRange(l, r)
 		nos[r], nos[randIndex] = nos[randIndex], nos[r]
 
