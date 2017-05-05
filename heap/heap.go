@@ -4,28 +4,26 @@ type integers []int
 
 func HeapfyInt(nos integers) {
 	size := len(nos)
-	heapifyInt(nos, size>>1)
+	for i := size >> 1; i >= 0; i-- {
+		heapifyInt(nos, i)
+	}
 }
 
-func heapifyInt(nos integers, form int) {
+func heapifyInt(nos integers, from int) {
 	size := len(nos)
-	for i := form; i >= 0; i-- {
+	loop := true
+	for j, l, r := updateIndex(from); l < size && loop; {
+		ind := l
 
-		j, l, r := updateIndex(i)
-		loop := true
-		for l < size && loop {
-			ind := l
+		if r < size && nos[r] < nos[l] {
+			ind = r
+		}
 
-			if r < size && nos[r] < nos[l] {
-				ind = r
-			}
-
-			if nos[ind] < nos[j] {
-				nos[ind], nos[j] = nos[j], nos[ind]
-				j, l, r = updateIndex(ind)
-			} else {
-				loop = false
-			}
+		if nos[ind] < nos[j] {
+			nos[ind], nos[j] = nos[j], nos[ind]
+			j, l, r = updateIndex(ind)
+		} else {
+			loop = false
 		}
 	}
 }
