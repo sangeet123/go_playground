@@ -2,6 +2,8 @@ package heap
 
 type integers []int
 
+type integersPtr *[]int
+
 func HeapfyInt(nos integers) {
 	size := len(nos)
 	for i := size >> 1; i >= 0; i-- {
@@ -26,6 +28,19 @@ func heapifyInt(nos integers, from int) {
 			loop = false
 		}
 	}
+}
+
+func Delete(nosPtr integersPtr) int {
+	if len(*nosPtr) == 0 {
+		panic("Empty heap")
+	}
+	nos := *nosPtr
+	toReturn := nos[0]
+	nos[0] = nos[len(nos)-1]
+	nos = nos[:len(nos)-1]
+	heapifyInt(nos, 0)
+	*nosPtr = nos
+	return toReturn
 }
 
 func updateIndex(start int) (int, int, int) {

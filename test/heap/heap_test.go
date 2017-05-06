@@ -13,6 +13,14 @@ func TestHeapTest(t *testing.T) {
 	if !reflect.DeepEqual(expected, nos) {
 		t.Error("Expected ", expected, " but received ", nos)
 	}
+
+	expected = []int{1, 2, 3, 4, 5}
+	for _, val := range expected {
+		deleted := heap.Delete(&nos)
+		if deleted != val {
+			t.Error("Expected ", val, " but received ", deleted)
+		}
+	}
 }
 
 func TestHeapTestSingleElementArray(t *testing.T) {
