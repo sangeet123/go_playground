@@ -118,9 +118,13 @@ func (list *List) Delete(data custom_type) {
 	if node_to_delete, ok := list.contains(data); ok {
 		if node_to_delete == list.root {
 			next := list.root.next
-			next.prev = nil
-			list.root.next = nil
-			list.root = next
+			if next != nil {
+				next.prev = nil
+				list.root.next = nil
+				list.root = next
+			} else {
+				list.root = nil
+			}
 		} else if node_to_delete == list.end {
 			list.end = node_to_delete.prev
 			node_to_delete.prev = nil
