@@ -51,15 +51,15 @@ func createSolution(source string, target string, neighborsMap map[string][]stri
 
 func solveBFS(source string, target string, neighborsMap map[string][]string, result *Result) {
 
-	arr := make(map[string]bool)
-	arr[source] = true
+	arr := make(map[string]struct{})
+	arr[source] = struct{}{}
 	creator := make(map[string][]string)
 	creator[source] = []string{}
 	trackerMap := make(map[string]bool)
 	extend := true
 
 	for len(arr) != 0 {
-		to_append := make(map[string]bool)
+		to_append := make(map[string]struct{})
 		for val, _ := range arr {
 			for _, neighbor := range neighborsMap[val] {
 				_, is_tracked := trackerMap[neighbor]
@@ -70,13 +70,13 @@ func solveBFS(source string, target string, neighborsMap map[string][]string, re
 					_, on_same_level := arr[neighbor]
 					if !on_same_level {
 						creator[neighbor] = append(creator[neighbor], val)
-						to_append[neighbor] = true
+						to_append[neighbor] = struct{}{}
 					}
 				}
 			}
 			trackerMap[val] = true
 		}
-		arr = make(map[string]bool)
+		arr = make(map[string]struct{})
 		if extend {
 			arr = to_append
 		}

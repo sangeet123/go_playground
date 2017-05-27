@@ -4,11 +4,11 @@ package list
 func (list *List) RemoveDupsInplace() {
 	prev := list.root
 	next := list.root
-	itemMap := make(map[custom_type]bool)
+	itemMap := make(map[custom_type]struct{})
 
 	for next != nil {
 		if _, ok := itemMap[next.data]; !ok {
-			itemMap[next.data] = true
+			itemMap[next.data] = struct{}{}
 			prev = next
 			next = next.next
 		} else {
