@@ -66,11 +66,9 @@ func (this *node) delete() *node {
 		replacer = this.p
 	} else if this.hasBothChild() {
 		preDecessor := this.getInorderPredecessor()
-		if !preDecessor.isRightChild() {
-			makeLeftChild(preDecessor.p, preDecessor.r)
-			makeRightChild(preDecessor, this.r)
-		}
+		createLinkWithGrandParent(preDecessor, preDecessor.r)
 		makeLeftChild(preDecessor, this.l)
+		makeRightChild(preDecessor, this.r)
 		createLinkWithGrandParent(this, preDecessor)
 		replacer = preDecessor
 	} else if this.hasLeftChild() {
