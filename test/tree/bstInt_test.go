@@ -381,3 +381,34 @@ func TestTreeDeleteLeftChildNonRootWithNonImmediatePredecessor(t *testing.T) {
 		t.Error("expected postOrder ", expectedPostOrder, " but received ", postOrder)
 	}
 }
+
+func TestTreeDeleteSequenceOfOperations(t *testing.T) {
+	nos := []int{50, 35, 70, 20, 65, 75, 15, 30, 73, 80, 25, 32, 78, 89}
+	expectedInOrder := []int{15, 25, 30, 70, 73, 78}
+	expectedPreOrder := []int{70, 25, 15, 30, 78, 73}
+	expectedPostOrder := []int{15, 30, 25, 73, 78, 70}
+	tre := tree.GetIntTree(comparator)
+	for _, val := range nos {
+		tre.Insert(val)
+	}
+
+	deleteSequence := []int{20, 75, 35, 80, 50, 65, 32, 89}
+	for _, val := range deleteSequence {
+		tre.Delete(val)
+	}
+
+	inorder := tre.InOrder()
+	if !reflect.DeepEqual(expectedInOrder, inorder) {
+		t.Error("expected inOrder ", expectedInOrder, " but received ", inorder)
+	}
+
+	preOrder := tre.PreOrder()
+	if !reflect.DeepEqual(expectedPreOrder, preOrder) {
+		t.Error("expected preOrder ", expectedPreOrder, " but received ", preOrder)
+	}
+
+	postOrder := tre.PostOrder()
+	if !reflect.DeepEqual(expectedPostOrder, postOrder) {
+		t.Error("expected postOrder ", expectedPostOrder, " but received ", postOrder)
+	}
+}
