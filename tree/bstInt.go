@@ -137,3 +137,20 @@ func postOrder(n *node, toRetPtr intptr) {
 		*toRetPtr = append(*toRetPtr, n.data)
 	}
 }
+
+func (this intTree) GetHeight() int {
+	return height(this.root)
+}
+
+func height(n *node) int {
+	if n == nil {
+		return 0
+	}
+	leftHeight := 1 + height(n.l)
+	rightHeight := 1 + height(n.r)
+
+	if leftHeight >= rightHeight {
+		return leftHeight
+	}
+	return rightHeight
+}
