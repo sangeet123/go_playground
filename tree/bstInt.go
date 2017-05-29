@@ -1,5 +1,9 @@
 package tree
 
+import (
+	"go_playground/list"
+)
+
 type intComparator func(a int, b int) int
 type intptr *[]int
 
@@ -136,6 +140,41 @@ func postOrder(n *node, toRetPtr intptr) {
 	}
 }
 
+func (this intTree) LevelOrder() []int {
+	toRet := []int{}
+	levelOrder(this.root, &toRet)
+	return toRet
+}
+
+func levelOrder(n *node, toRetPtr intptr) {
+	list := new(list.List)
+	list.Append(n)
+	for list.Size() > 0 {
+		*toRetPtr = append(*toRetPtr, deleteFirstAndGetData(list))
+	}
+}
+
+func (this intTree) LevelOrderList() *list.List {
+	list := new(list.List)
+	LevelOrderList(this.root, list)
+	return list
+}
+
+func LevelOrderList(n *node, result *list.List) {
+	ll := new(list.List)
+	ll.Append(n)
+	for ll.Size() > 0 {
+		listToAppend := new(list.List)
+		curSize := ll.Size()
+		for i := 0; i < curSize; i++ {
+			listToAppend.Append(deleteFirstAndGetData(ll))
+		}
+		if listToAppend.Size() > 0 {
+			result.Append(listToAppend)
+		}
+	}
+}
+
 func (this intTree) GetHeight() int {
 	return height(this.root)
 }
@@ -151,4 +190,16 @@ func height(n *node) int {
 		return leftHeight
 	}
 	return rightHeight
+}
+
+func deleteFirstAndGetData(ll *list.List) int {
+	n := ll.Get(0).(*node)
+	ll.Delete(n)
+	if n.l != nil {
+		ll.Append(n.l)
+	}
+	if n.r != nil {
+		ll.Append(n.r)
+	}
+	return n.data
 }

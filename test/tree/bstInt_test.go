@@ -1,6 +1,7 @@
 package bstinttest
 
 import (
+	"go_playground/list"
 	"go_playground/tree"
 	"reflect"
 	"testing"
@@ -20,6 +21,7 @@ func TestTreeInsertOperation(t *testing.T) {
 	expectedInOrder := []int{1, 2, 3, 4, 5, 7, 8}
 	expectedPreOrder := []int{4, 3, 2, 1, 5, 7, 8}
 	expectedPostOrder := []int{1, 2, 3, 8, 7, 5, 4}
+	expectedLevelOrder := []int{4, 3, 5, 2, 7, 1, 8}
 	tre := tree.GetIntTree(comparator)
 	for _, val := range nos {
 		tre.Insert(val)
@@ -40,6 +42,28 @@ func TestTreeInsertOperation(t *testing.T) {
 		t.Error("expected postOrder ", expectedPostOrder, " but received ", postOrder)
 	}
 
+	levelOrder := tre.LevelOrder()
+	if !reflect.DeepEqual(expectedLevelOrder, levelOrder) {
+		t.Error("expected postOrder ", expectedLevelOrder, " but received ", levelOrder)
+	}
+
+	levelOrderList := tre.LevelOrderList()
+	levelSizes := []int{1, 2, 2, 2}
+	elementsInLevel := [][]int{{4}, {3, 5}, {2, 7}, {1, 8}}
+	for i := 0; i < levelOrderList.Size(); i++ {
+		sizeReceived := levelOrderList.Get(i).(*list.List).Size()
+		if sizeReceived != levelSizes[i] {
+			t.Error("expected level Size ", i, " of ", levelSizes[i], " but received ", sizeReceived)
+		}
+
+		it := levelOrderList.Get(i).(*list.List).Iterator()
+		for _, val := range elementsInLevel[i] {
+			valInList := it.Next()
+			if val != valInList {
+				t.Error("expected val ", val, " but received ", valInList)
+			}
+		}
+	}
 }
 
 // Testing for root nodes
