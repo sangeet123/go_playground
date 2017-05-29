@@ -62,11 +62,7 @@ func (this *intTree) find(data int) (*node, *node) {
 func (this *node) delete() *node {
 	var replacer *node
 	if this.isLeafNode() {
-		if this.isLeftChild() {
-			makeLeftChild(this.p, nil)
-		} else {
-			makeRightChild(this.p, nil)
-		}
+		createLinkWithGrandParent(this, nil)
 		replacer = this.p
 	} else if this.hasBothChild() {
 		preDecessor := this.getInorderPredecessor()
@@ -75,16 +71,15 @@ func (this *node) delete() *node {
 			makeRightChild(preDecessor, this.r)
 		}
 		makeLeftChild(preDecessor, this.l)
-		linkWithParent(this.p, preDecessor)
+		createLinkWithGrandParent(this, preDecessor)
 		replacer = preDecessor
 	} else if this.hasLeftChild() {
-		makeLeftChild(this.p, this.l)
+		createLinkWithGrandParent(this, this.l)
 		replacer = this.l
 	} else {
-		makeRightChild(this.p, this.r)
+		createLinkWithGrandParent(this, this.r)
 		replacer = this.r
 	}
-	this.stripAllLinks()
 	return replacer
 }
 
@@ -98,6 +93,7 @@ func (this *intTree) Delete(data int) {
 		this.root = replacer
 		this.root.p = nil
 	}
+	nodeToDelete.stripAllLinks()
 }
 
 func (this intTree) InOrder() []int {

@@ -16,22 +16,26 @@ func linkWithParent(p, c *node) {
 	}
 }
 
-func makeLeftChild(p, c *node) *node {
+func makeLeftChild(p, c *node) {
 	if p != nil {
 		p.l = c
 		linkWithParent(p, c)
-		return p
 	}
-	return c
 }
 
-func makeRightChild(p, c *node) *node {
+func makeRightChild(p, c *node) {
 	if p != nil {
 		p.r = c
 		linkWithParent(p, c)
-		return p
 	}
-	return c
+}
+
+func createLinkWithGrandParent(n, c *node) {
+	if n.isLeftChild() {
+		makeLeftChild(n.p, c)
+	} else {
+		makeRightChild(n.p, c)
+	}
 }
 
 func (n node) getInorderPredecessor() *node {
@@ -46,12 +50,12 @@ func (n node) isRootNode() bool {
 	return n.p == nil
 }
 
-func (n node) isLeftChild() bool {
-	return n.p != nil && n.p.l == &n
+func (n *node) isLeftChild() bool {
+	return n.p != nil && n.p.l == n
 }
 
-func (n node) isRightChild() bool {
-	return n.p != nil && n.p.r == &n
+func (n *node) isRightChild() bool {
+	return n.p != nil && n.p.r == n
 }
 
 func (n node) hasLeftChild() bool {
@@ -67,7 +71,7 @@ func (n node) hasBothChild() bool {
 }
 
 func (n node) isLeafNode() bool {
-	return !n.hasLeftChild() || !n.hasRightChild()
+	return !(n.hasLeftChild() || n.hasRightChild())
 }
 
 func (n *node) stripAllLinks() {
