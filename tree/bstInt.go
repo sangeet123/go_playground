@@ -5,8 +5,9 @@ type intptr *[]int
 
 type node struct {
 	data int
-	l    *node
-	r    *node
+	l    *node // left child
+	r    *node // right child
+	p    *node // parent node
 }
 
 type intTree struct {
@@ -21,37 +22,81 @@ func GetIntTree(c intComparator) *intTree {
 	return tree
 }
 
-func getNode(data int) *node {
-	n := new(node)
-	n.data = data
-	n.l = nil
-	n.r = nil
-	return n
-}
-
+// inserts new node with data equals to data
 func (this *intTree) Insert(data int) {
-	newNode := getNode(data)
 	if this.root == nil {
-		this.root = newNode
+		this.root = getNode(data)
 		return
 	}
+	parent, nodeWithSameData := this.find(data)
+	if nodeWithSameData != nil {
+		return
+	}
+	newNode := getNode(data)
+	if this.comp(parent.data, data) > 0 {
+		makeLeftChild(parent, newNode)
+		return
+	}
+	makeRightChild(parent, newNode)
+}
 
+func (this *intTree) find(data int) (*node, *node) {
 	start := this.root
-	parent := start
-
-	for start != nil {
+	parent := this.root.p
+	val := 1
+	for start != nil && val != 0 {
+		val = this.comp(start.data, data)
+		if val == 0 {
+			break
+		}
 		parent = start
-		if this.comp(start.data, data) >= 0 {
-			start = start.l
-		} else {
+		if val < 0 {
 			start = start.r
+		} else {
+			start = start.l
 		}
 	}
+	return parent, start
+}
 
-	if this.comp(parent.data, data) > 0 {
-		parent.l = newNode
+func (this *node) delete() *node {
+	var replacer *node
+	if this.isLeafNode() {
+		if this.isLeftChild() {
+			makeLeftChild(this.p, nil)
+		} else {
+			makeRightChild(this.p, nil)
+		}
+		replacer = this.p
+	} else if this.hasBothChild() {
+		preDecessor := this.getInorderPredecessor()
+		if !preDecessor.isRightChild() {
+			makeLeftChild(preDecessor.p, preDecessor.r)
+			makeRightChild(preDecessor, this.r)
+		}
+		makeLeftChild(preDecessor, this.l)
+		linkWithParent(this.p, preDecessor)
+		replacer = preDecessor
+	} else if this.hasLeftChild() {
+		makeLeftChild(this.p, this.l)
+		replacer = this.l
 	} else {
-		parent.r = newNode
+		makeRightChild(this.p, this.r)
+		replacer = this.r
+	}
+	this.stripAllLinks()
+	return replacer
+}
+
+func (this *intTree) Delete(data int) {
+	_, nodeToDelete := this.find(data)
+	if nodeToDelete == nil {
+		return
+	}
+	replacer := nodeToDelete.delete()
+	if nodeToDelete.isRootNode() {
+		this.root = replacer
+		this.root.p = nil
 	}
 }
 
