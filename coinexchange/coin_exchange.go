@@ -2,12 +2,15 @@ package coinexchange
 
 import "sort"
 
+//Integers is integers slice
 type Integers []int
 
+//Len returns the size of slice
 func (slice Integers) Len() int {
 	return len(slice)
 }
 
+//GetTotalWays retruns total ways to make coins
 func GetTotalWays(total int, coins Integers) int {
 
 	n := coins.Len()

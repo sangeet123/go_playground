@@ -3,8 +3,9 @@ package heap
 type integers []int
 
 type integersPtr *[]int
-type compare func(i int, j int, nos []int) int
+type compare func(i int, j int, node []int) int
 
+// HeapfyInt that performs integer heapification
 func HeapfyInt(nos integers, comp compare) {
 	size := len(nos)
 	for i := size >> 1; i >= 0; i-- {
@@ -12,6 +13,7 @@ func HeapfyInt(nos integers, comp compare) {
 	}
 }
 
+// PerformHeapify performs heapification
 func PerformHeapify(nos integers, from int, comp compare) {
 	size := len(nos)
 	loop := true
@@ -31,6 +33,7 @@ func PerformHeapify(nos integers, from int, comp compare) {
 	}
 }
 
+// Delete removes element from top of heap
 func Delete(nosPtr integersPtr, comp compare) int {
 	if len(*nosPtr) == 0 {
 		panic("Empty heap")
