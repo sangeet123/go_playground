@@ -8,6 +8,9 @@ type CustomData interface{}
 //DataTable store heap data
 type DataTable []CustomData
 
+//Compare function compares two data
+type Compare func(nodes []Node, i int, j int) int
+
 // Node of a heap
 type Node struct {
 	Data     CustomData
@@ -18,6 +21,7 @@ type Node struct {
 type Heap struct {
 	Data []Node
 	hmap map[string]int
+	comp Compare
 }
 
 // IsEmpty return true if heap is empty
@@ -28,7 +32,7 @@ func (h Heap) IsEmpty() bool {
 // NewHeap returns the heap data structure
 // Here map only stores the unique one
 // all data with same val removed
-func NewHeap(data []Node) *Heap {
+func NewHeap(data []Node, compare Compare) *Heap {
 	if len(data) == 0 {
 		panic("Data cannot be nil")
 	}
@@ -44,6 +48,7 @@ func NewHeap(data []Node) *Heap {
 			i++
 		}
 	}
+	h.comp = compare
 	return h
 }
 
@@ -63,10 +68,10 @@ func (h Heap) PerformHeapify(from int) {
 		ind := l
 
 		if r < size {
-			ind = h.comp(r, l)
+			ind = h.comp(h.Data, r, l)
 		}
 
-		if h.comp(ind, j) == ind {
+		if h.comp(h.Data, ind, j) == ind {
 			h.hmap[getKey(h.Data[ind])], h.hmap[getKey(h.Data[j])] = j, ind
 			h.Data[ind], h.Data[j] = h.Data[j], h.Data[ind]
 			j, l, r = updateIndex(ind)
@@ -97,16 +102,28 @@ func (h *Heap) Delete() Node {
 func (h *Heap) IncreasePriority(node Node, priority float64) {
 	if _, ok := h.hmap[getKey(node)]; ok {
 		nodeIndx := h.hmap[getKey(node)]
-		if h.Data[nodeIndx].Priority > priority {
-			panic("priority cannot be decreased")
-		}
+		assertValidPriority(h.Data[nodeIndx], priority, h.comp)
 		h.Data[nodeIndx].Priority = priority
 		parent := nodeIndx >> 1
-		for ; parent != nodeIndx && h.Data[parent].Priority < h.Data[nodeIndx].Priority; parent = parent >> 1 {
+		for ; parent != nodeIndx && hasHigherPriority(h.Data[parent], h.Data[nodeIndx], h.comp); parent = parent >> 1 {
 			h.hmap[getKey(h.Data[parent])], h.hmap[getKey(h.Data[nodeIndx])] = nodeIndx, parent
 			h.Data[parent], h.Data[nodeIndx] = h.Data[nodeIndx], h.Data[parent]
 			nodeIndx = parent
 		}
+	}
+}
+
+func hasHigherPriority(nodeS, nodeD Node, comp Compare) bool {
+	nodes := []Node{nodeS, nodeD}
+	if comp(nodes, 0, 1) == 1 {
+		return true
+	}
+	return false
+}
+
+func assertValidPriority(node Node, priority float64, comp Compare) {
+	if !hasHigherPriority(node, Node{Priority: priority}, comp) {
+		panic("not a valid priority value ")
 	}
 }
 
@@ -116,13 +133,6 @@ func (h Heap) GetPriority(node Node) (float64, bool) {
 		return h.Data[nodeIndx].Priority, true
 	}
 	return 0, false
-}
-
-func (h Heap) comp(i, j int) int {
-	if h.Data[i].Priority >= h.Data[j].Priority {
-		return i
-	}
-	return j
 }
 
 func getKey(node Node) string {
