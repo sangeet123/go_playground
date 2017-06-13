@@ -53,6 +53,6 @@ func TestTreeInsertOperation(t *testing.T) {
 	g.Nodes = nodes
 	g.Edges = edges
 
-	kruskal := g.Kruskal(graph.Node{1})
+	kruskal := g.Prim(graph.Node{1})
 	fmt.Println(kruskal)
 }

@@ -39,8 +39,8 @@ func initializeHeap(g Graph, start Node) *heap.Heap {
 	return h
 }
 
-// Kruskal returns minimum spanning tree set edges
-func (g Graph) Kruskal(start Node) []TraversalResult {
+// Prim returns minimum spanning tree set edges
+func (g Graph) Prim(start Node) []TraversalResult {
 	h := initializeHeap(g, start)
 	nodeParentMap := make(map[Node]Node)
 	minimumSpanningResultSet := []TraversalResult{}
