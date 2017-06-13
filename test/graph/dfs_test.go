@@ -6,9 +6,6 @@ import (
 	"testing"
 )
 
-type node graph.Node
-type edge graph.Edge
-
 func TestTreeInsertOperation(t *testing.T) {
 	nodes := []graph.Node{
 		graph.Node{1},
