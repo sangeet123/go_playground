@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestTreeInsertOperation(t *testing.T) {
+func TestKruskalOperation(t *testing.T) {
 	nodes := []graph.Node{
 		graph.Node{1},
 		graph.Node{2},
@@ -53,6 +53,11 @@ func TestTreeInsertOperation(t *testing.T) {
 	g.Nodes = nodes
 	g.Edges = edges
 
-	prim := g.Prim(graph.Node{1})
-	fmt.Println(prim)
+	kruskal := g.Kruskal()
+
+	it := kruskal.Iterator()
+
+	for it.HasNext() {
+		fmt.Println(it.Next())
+	}
 }

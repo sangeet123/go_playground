@@ -1,5 +1,8 @@
 package graph
 
+// Edges is a collection of edges
+type Edges []Edge
+
 // Node of a graph
 // For the sake of simplicity each node of graph is given unique id
 type Node struct {
@@ -16,7 +19,7 @@ type Edge struct {
 // Graph type
 type Graph struct {
 	Nodes []Node
-	Edges []Edge
+	Edges Edges
 }
 
 //AdjMatrix Graph Representation
