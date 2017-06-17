@@ -31,22 +31,22 @@ func initializeHeap(g Graph, start Node) *heap.Heap {
 	return h
 }
 
-func updateHeapAndParentMap(h *heap.Heap, parent Node, neighbors map[Node]float64, nodeParentMap map[Node]Node, incFunc increaseBy) {
+func updateHeapAndParentMap(h *heap.Heap, parent Node, neighbors map[Node]float64, nodeParentMap map[Node]Edge, incFunc increaseBy) {
 	for neighbor, dist := range neighbors {
 		heapNode := heap.Node{Data: neighbor}
 		if curDist, ok := h.GetPriority(heapNode); ok {
 			if priority, ok := updatePriority(curDist, dist, incFunc(heapNode)); ok {
 				h.IncreasePriority(heapNode, priority)
-				nodeParentMap[neighbor] = parent
+				nodeParentMap[neighbor] = Edge{S: parent, D: neighbor, W: priority}
 			}
 		}
 	}
 }
 
-func (g Graph) startProcessing(start Node, incFunc increaseBy) map[Node]Node {
+func (g Graph) startProcessing(start Node, incFunc increaseBy) map[Node]Edge {
 	h := initializeHeap(g, start)
-	nodeParentMap := make(map[Node]Node)
-	nodeParentMap[start] = Node{}
+	nodeParentMap := make(map[Node]Edge)
+	nodeParentMap[start] = Edge{S: start, D: Node{}, W: 0}
 	for !h.IsEmpty() {
 		node := h.Delete()
 		nextNode := node.Data.(Node)

@@ -54,5 +54,9 @@ func TestTreeInsertOperation(t *testing.T) {
 	g.Edges = edges
 
 	prim := g.Prim(graph.Node{1})
-	fmt.Println(prim)
+	it := prim.Iterator()
+
+	for it.HasNext() {
+		fmt.Println(it.Next())
+	}
 }

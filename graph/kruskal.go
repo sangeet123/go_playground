@@ -1,7 +1,6 @@
 package graph
 
 import (
-	"fmt"
 	"go_playground/list"
 	"sort"
 )
@@ -43,7 +42,6 @@ func (g Graph) Kruskal() *list.List {
 	sort.Sort(g.Edges)
 	for _, e := range g.Edges {
 		val := belongsToSameSet(setMap, e.S, e.D)
-		fmt.Println("Edge:", e, " val :=", val, " setMap", setMap)
 		if !val {
 			merge(setMap, e.S, e.D)
 			kruskalEdges.Append(e)
