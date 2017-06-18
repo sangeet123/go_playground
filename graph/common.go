@@ -11,7 +11,7 @@ func compare(nodes []heap.Node, i int, j int) int {
 	if i < 0 || i >= len(nodes) || j < 0 || j >= len(nodes) {
 		panic("index out of bound")
 	}
-	if nodes[i].Priority < nodes[j].Priority {
+	if nodes[i].Priority <= nodes[j].Priority {
 		return i
 	}
 	return j
@@ -31,13 +31,13 @@ func initializeHeap(g Graph, start Node) *heap.Heap {
 	return h
 }
 
-func updateHeapAndParentMap(h *heap.Heap, parent Node, neighbors map[Node]float64, nodeParentMap map[Node]Edge, incFunc increaseBy) {
+func updateHeapAndParentMap(h *heap.Heap, parent heap.Node, neighbors map[Node]float64, nodeParentMap map[Node]Edge, incFunc increaseBy) {
 	for neighbor, dist := range neighbors {
 		heapNode := heap.Node{Data: neighbor}
 		if curDist, ok := h.GetPriority(heapNode); ok {
-			if priority, ok := updatePriority(curDist, dist, incFunc(heapNode)); ok {
+			if priority, ok := updatePriority(curDist, dist, incFunc(parent)); ok {
 				h.IncreasePriority(heapNode, priority)
-				nodeParentMap[neighbor] = Edge{S: parent, D: neighbor, W: priority}
+				nodeParentMap[neighbor] = Edge{S: parent.Data.(Node), D: neighbor, W: priority}
 			}
 		}
 	}
@@ -49,9 +49,8 @@ func (g Graph) startProcessing(start Node, incFunc increaseBy) map[Node]Edge {
 	nodeParentMap[start] = Edge{S: start, D: Node{}, W: 0}
 	for !h.IsEmpty() {
 		node := h.Delete()
-		nextNode := node.Data.(Node)
-		neighbors := g.getAdjMatrix().neighbors[nextNode]
-		updateHeapAndParentMap(h, nextNode, neighbors, nodeParentMap, incFunc)
+		neighbors := g.getAdjMatrix().neighbors[node.Data.(Node)]
+		updateHeapAndParentMap(h, node, neighbors, nodeParentMap, incFunc)
 	}
 	return nodeParentMap
 }
