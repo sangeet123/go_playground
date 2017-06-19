@@ -28,6 +28,10 @@ func preprocess(word string) []int {
 // algorithm for finding the first index of a
 // substring
 func KMP(text, word string) int {
+	if failEarly(text, word) {
+		return -1
+	}
+
 	kmp := func(text, word string) int {
 		arr := preprocess(word)
 		j := 0
@@ -48,10 +52,5 @@ func KMP(text, word string) int {
 		}
 		return -1
 	}
-
-	if failEarly(text, word) {
-		return -1
-	}
 	return kmp(text, word)
-
 }
