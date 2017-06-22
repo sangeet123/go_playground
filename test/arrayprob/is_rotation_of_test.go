@@ -1,14 +1,14 @@
-package rotatedstrtest
+package arrayprobtest
 
 import (
-	"go_playground/rotatedstr"
+	"go_playground/arrayprob"
 	"testing"
 )
 
 func TestValidRotatedWordExample1(t *testing.T) {
 	word := "mangobanana"
 	rotated := "bananamango"
-	if !rotatedstr.IsRotated(word, rotated) {
+	if !arrayprob.IsRotated(word, rotated) {
 		t.Error("Expected true but returned false")
 	}
 }
@@ -16,7 +16,7 @@ func TestValidRotatedWordExample1(t *testing.T) {
 func TestValidRotatedWordExample2(t *testing.T) {
 	word := "mangobanana"
 	rotated := "nanamangoba"
-	if !rotatedstr.IsRotated(word, rotated) {
+	if !arrayprob.IsRotated(word, rotated) {
 		t.Error("Expected true but returned false")
 	}
 }
@@ -24,7 +24,7 @@ func TestValidRotatedWordExample2(t *testing.T) {
 func TestInValidRotatedWordUnEqualLength(t *testing.T) {
 	word := "mangobana"
 	rotated := "bana"
-	if rotatedstr.IsRotated(word, rotated) {
+	if arrayprob.IsRotated(word, rotated) {
 		t.Error("Expected false but returned true")
 	}
 }
@@ -32,7 +32,7 @@ func TestInValidRotatedWordUnEqualLength(t *testing.T) {
 func TestValidBothEmptyStrings(t *testing.T) {
 	word := ""
 	rotated := ""
-	if !rotatedstr.IsRotated(word, rotated) {
+	if !arrayprob.IsRotated(word, rotated) {
 		t.Error("Expected false but returned true")
 	}
 }

@@ -1,4 +1,4 @@
-package rotatedstr
+package arrayprob
 
 import "strings"
 
