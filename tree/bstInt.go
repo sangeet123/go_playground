@@ -46,7 +46,7 @@ func (this *intTree) Insert(data int) {
 
 func (this *intTree) find(data int) (*node, *node) {
 	start := this.root
-	if start == nil{
+	if start == nil {
 		return nil, nil
 	}
 	parent := this.root.p
