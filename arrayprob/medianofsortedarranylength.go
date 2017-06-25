@@ -30,6 +30,8 @@ func GetMedianOfUnequalLengthArr(arr1, arr2 []int) float32 {
 
 }
 
+// comparison has to be made on equal length chunks
+// if mid is greater than skip elements return skip -1
 func compareLengthAndGetMid(lenarr1, lenarr2, skip int) int {
 	m := lenarr1 >> 1
 	if lenarr1 >= lenarr2 {
