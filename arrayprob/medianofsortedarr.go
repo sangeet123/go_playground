@@ -5,8 +5,8 @@ import (
 )
 
 // no validation of length done on array
-// equal lenght array should be provided
-// also array of zero lenght are not expected
+// equal length array should be provided
+// also array of zero length are not expected
 //GetMedian returns lower median
 func GetMedian(arr1, arr2 []int) int {
 
