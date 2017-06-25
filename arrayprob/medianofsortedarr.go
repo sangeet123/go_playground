@@ -20,12 +20,12 @@ func GetMedian(arr1, arr2 []int) int {
 
 		if arr1[m1] > arr2[m2] {
 			arr1 = arr1[0 : m1+1]
-			if len(arr2)%2 == 0 {
+			if isEven(len(arr2)) {
 				m2++
 			}
 			arr2 = arr2[m2:]
 		} else {
-			if len(arr1)%2 == 0 {
+			if isEven(len(arr1)) {
 				m1++
 			}
 			arr1 = arr1[m1:]
@@ -53,4 +53,8 @@ func mergeArr(arr1, arr2 []int) []int {
 		arr = append(arr, v)
 	}
 	return arr
+}
+
+func isEven(no int) bool {
+	return no%2 == 0
 }

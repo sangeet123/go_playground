@@ -52,3 +52,11 @@ func TestArrWithTenElementsWithAllCaseSatisfying(t *testing.T) {
 		t.Error("Expected 15 but received ", val)
 	}
 }
+
+func TestArrWithTenElementsHavingEqualNosAsMedian(t *testing.T) {
+	arr1 := []int{1, 2, 3, 4, 7, 10}
+	arr2 := []int{5, 7, 9, 10, 11, 12}
+	if val := arrayprob.GetMedian(arr1, arr2); val != 7 {
+		t.Error("Expected 7 but received ", val)
+	}
+}
