@@ -4,6 +4,10 @@ import (
 	"go_playground/sort"
 )
 
+const (
+	threshold = 3
+)
+
 func GetMedianOfUnequalLengthArr(arr1, arr2 []int) float32 {
 	total := len(arr1) + len(arr2)
 	skip := 0
@@ -15,7 +19,7 @@ func GetMedianOfUnequalLengthArr(arr1, arr2 []int) float32 {
 		skip = total >> 1
 	}
 
-	for skip > 1 && len(arr1) > 0 && len(arr2) > 0 {
+	for skip > threshold && len(arr1) > 0 && len(arr2) > 0 {
 		m := compareLengthAndGetMid(len(arr1), len(arr2), skip)
 		if arr1[m] >= arr2[m] {
 			arr2 = arr2[m:]
@@ -24,7 +28,7 @@ func GetMedianOfUnequalLengthArr(arr1, arr2 []int) float32 {
 		}
 		skip -= m
 	}
-	arr := append(getFirstTwoElement(arr1), getFirstTwoElement(arr2)...)
+	arr := mergeArr(getFirstKElement(arr1, threshold), getFirstKElement(arr2, threshold))
 	sort.InsertionSortInt(arr)
 	return getMedian(arr[skip:], even)
 
@@ -44,11 +48,11 @@ func compareLengthAndGetMid(lenarr1, lenarr2, skip int) int {
 	return m
 }
 
-func getFirstTwoElement(arr []int) []int {
+func getFirstKElement(arr []int, k int) []int {
 	toReturn := []int{}
 	counter := 0
 	for _, v := range arr {
-		if counter >= 2 {
+		if counter >= k {
 			break
 		}
 		toReturn = append(toReturn, v)

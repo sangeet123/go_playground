@@ -23,7 +23,7 @@ func TestTreeInsertOperation(t *testing.T) {
 		graph.Edge{S: graph.Node{3}, D: graph.Node{4}},
 		graph.Edge{S: graph.Node{4}, D: graph.Node{5}},
 		graph.Edge{S: graph.Node{5}, D: graph.Node{2}},
-    graph.Edge{S: graph.Node{5}, D: graph.Node{8}},
+		graph.Edge{S: graph.Node{5}, D: graph.Node{8}},
 		graph.Edge{S: graph.Node{4}, D: graph.Node{7}},
 		graph.Edge{S: graph.Node{7}, D: graph.Node{8}},
 		graph.Edge{S: graph.Node{8}, D: graph.Node{9}},
@@ -34,37 +34,37 @@ func TestTreeInsertOperation(t *testing.T) {
 	g.Nodes = nodes
 	g.Edges = edges
 
-	if hasRoute:=g.HasRoute(graph.Node{5},graph.Node{1}); hasRoute{
-    t.Error("Expected false but received ", hasRoute)
-  }
+	if hasRoute := g.HasRoute(graph.Node{5}, graph.Node{1}); hasRoute {
+		t.Error("Expected false but received ", hasRoute)
+	}
 
-  if hasRoute:=g.HasRoute(graph.Node{1},graph.Node{5}); !hasRoute{
-    t.Error("Expected true but received ", hasRoute)
-  }
+	if hasRoute := g.HasRoute(graph.Node{1}, graph.Node{5}); !hasRoute {
+		t.Error("Expected true but received ", hasRoute)
+	}
 
-  if hasRoute:=g.HasRoute(graph.Node{1},graph.Node{9}); !hasRoute{
-    t.Error("Expected true but received ", hasRoute)
-  }
+	if hasRoute := g.HasRoute(graph.Node{1}, graph.Node{9}); !hasRoute {
+		t.Error("Expected true but received ", hasRoute)
+	}
 
-  if hasRoute:=g.HasRoute(graph.Node{7},graph.Node{5}); !hasRoute{
-    t.Error("Expected true but received ", hasRoute)
-  }
+	if hasRoute := g.HasRoute(graph.Node{7}, graph.Node{5}); !hasRoute {
+		t.Error("Expected true but received ", hasRoute)
+	}
 
-  //Fastest Traversal
-  if hasRoute:=g.FastHasRoute(graph.Node{5},graph.Node{1}); hasRoute{
-    t.Error("Expected false but received ", hasRoute)
-  }
+	//Fastest Traversal
+	if hasRoute := g.FastHasRoute(graph.Node{5}, graph.Node{1}); hasRoute {
+		t.Error("Expected false but received ", hasRoute)
+	}
 
-  if hasRoute:=g.FastHasRoute(graph.Node{1},graph.Node{5}); !hasRoute{
-    t.Error("Expected true but received ", hasRoute)
-  }
+	if hasRoute := g.FastHasRoute(graph.Node{1}, graph.Node{5}); !hasRoute {
+		t.Error("Expected true but received ", hasRoute)
+	}
 
-  if hasRoute:=g.FastHasRoute(graph.Node{1},graph.Node{9}); !hasRoute{
-    t.Error("Expected true but received ", hasRoute)
-  }
+	if hasRoute := g.FastHasRoute(graph.Node{1}, graph.Node{9}); !hasRoute {
+		t.Error("Expected true but received ", hasRoute)
+	}
 
-  if hasRoute:=g.FastHasRoute(graph.Node{7},graph.Node{5}); !hasRoute{
-    t.Error("Expected true but received ", hasRoute)
-  }
+	if hasRoute := g.FastHasRoute(graph.Node{7}, graph.Node{5}); !hasRoute {
+		t.Error("Expected true but received ", hasRoute)
+	}
 
 }
