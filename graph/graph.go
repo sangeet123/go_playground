@@ -45,3 +45,16 @@ func (g Graph) getAdjMatrix() *AdjMatrix {
 	}
 	return adjMatrix
 }
+
+// returns transposeofAdjMatrix
+func (g Graph) getTransposeAdjMatrix() *AdjMatrix {
+	adjMatrix := new(AdjMatrix)
+	adjMatrix.neighbors = make(map[Node]map[Node]float64)
+	for _, edge := range g.Edges {
+		if _, ok := adjMatrix.neighbors[edge.D]; !ok {
+			adjMatrix.neighbors[edge.D] = make(map[Node]float64)
+		}
+		adjMatrix.neighbors[edge.D][edge.S] = edge.W
+	}
+	return adjMatrix
+}
