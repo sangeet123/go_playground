@@ -25,17 +25,17 @@ func LongestValidParen(str string) string {
 		}
 	}
 
-	if len(arr) == 0{
+	if len(arr) == 0 {
 		return ""
 	}
 	start, end := GetLargestRange(arr)
-	return str[start : end + 1]
+	return str[start : end+1]
 }
 
 // Uses counting sort to find the largest range as we know
 // the range of the element cannot exceed string length
 func GetLargestRange(arr []int) (int, int) {
-	sorted := make([]bool, arr[len(arr)-1] + 1)
+	sorted := make([]bool, arr[len(arr)-1]+1)
 	for i := 0; i < len(arr); i++ {
 		sorted[arr[i]] = true
 	}
@@ -47,7 +47,7 @@ func GetLargestRange(arr []int) (int, int) {
 			if cb-ca > rb-ra {
 				ra, rb = ca, cb
 			}
-			ca = i+1
+			ca = i + 1
 		}
 	}
 	if cb-ca > rb-ra {

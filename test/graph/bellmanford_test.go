@@ -1,4 +1,4 @@
-package kruskaltest
+package bellmanfordtest
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestKruskalOperation(t *testing.T) {
+func TestBellmanFordOperation(t *testing.T) {
 	nodes := []graph.Node{
 		graph.Node{1},
 		graph.Node{2},

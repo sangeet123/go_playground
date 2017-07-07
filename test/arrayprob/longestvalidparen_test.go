@@ -45,13 +45,12 @@ func TestLongestValidParenExample5(t *testing.T) {
 	}
 }
 
-
 func TestLongestValidParenExample6(t *testing.T) {
-  expected := "([][]())"
-  received := arrayprob.LongestValidParen("()()()]([][]())")
-  if expected != received {
-    t.Error("Expected ", expected, " but received ", received)
-  }
+	expected := "([][]())"
+	received := arrayprob.LongestValidParen("()()()]([][]())")
+	if expected != received {
+		t.Error("Expected ", expected, " but received ", received)
+	}
 }
 
 func TestLongestValidParenExample7(t *testing.T) {

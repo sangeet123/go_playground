@@ -58,8 +58,8 @@ func (this *stack) Pop() custom_type {
 	return data
 }
 
-func (this *stack) Clear(){
-	for !this.IsEmpty(){
+func (this *stack) Clear() {
+	for !this.IsEmpty() {
 		this.Pop()
 	}
 }

@@ -18,7 +18,7 @@ func TestNonOverlappingIntervalsExample1(t *testing.T) {
 
 func TestNonOverlappingIntervalsExample2(t *testing.T) {
 	ranges := mergemeetings.Meetings{{Start: 2, End: 3}, {Start: 4, End: 6}, {Start: 11, End: 13}, {Start: 14, End: 15}, {Start: 19, End: 21}}
-	expected := mergemeetings.Meetings{{Start: 2, End: 3}, {Start: 4,End: 13}, {Start: 14, End: 15}, {Start: 19, End: 21}}
+	expected := mergemeetings.Meetings{{Start: 2, End: 3}, {Start: 4, End: 13}, {Start: 14, End: 15}, {Start: 19, End: 21}}
 	received := mergemeetings.InsertInterval(ranges, mergemeetings.Meeting{Start: 6, End: 11})
 
 	if !reflect.DeepEqual(expected, received) {

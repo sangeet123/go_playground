@@ -31,7 +31,7 @@ func MergeMeetings(ranges Meetings) Meetings {
 	return MergeSortedMeetings(ranges)
 }
 
-func MergeSortedMeetings(ranges Meetings) Meetings{
+func MergeSortedMeetings(ranges Meetings) Meetings {
 	result := Meetings{}
 	if len(ranges) == 0 {
 		return result
