@@ -1,7 +1,6 @@
 package graph
 
 import (
-  "fmt"
   "sort"
 )
 
@@ -25,10 +24,26 @@ func (slice nodesInfo) Swap(i, j int) {
 	slice[i], slice[j] = slice[j], slice[i]
 }
 
-func (g Graph) GetStronglyConnectedComponent() {
+func (g Graph) GetStronglyConnectedComponent()[][]TraversalResult {
 	infoNodes := preProcess(g)
   sort.Sort(infoNodes)
-  fmt.Println(infoNodes)
+  return postProcess(g,infoNodes)
+}
+
+func postProcess(g Graph, infoNodes nodesInfo)[][]TraversalResult{
+  adjMatrixTranspose := g.getTransposeAdjMatrix()
+  traversedNode := make(map[Node]struct{})
+  sccSet := [][]TraversalResult{}
+  for _, nInfo := range infoNodes {
+    if _, ok := traversedNode[nInfo.n]; !ok {
+      dfsResultSet := []TraversalResult{}
+      traversedNode[nInfo.n] = struct{}{}
+      dfsResultSet = append(dfsResultSet, TraversalResult{N: nInfo.n, P: Node{}})
+      dfsTraversal(adjMatrixTranspose, nInfo.n, traversedNode, &dfsResultSet)
+      sccSet = append(sccSet,dfsResultSet)
+    }
+  }
+  return sccSet
 }
 
 func preProcess(g Graph) nodesInfo{

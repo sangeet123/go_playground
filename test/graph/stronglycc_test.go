@@ -3,6 +3,7 @@ package kruskaltest
 import (
 	"go_playground/graph"
 	"testing"
+	"fmt"
 )
 
 func TestKruskalOperation(t *testing.T) {
@@ -42,5 +43,6 @@ func TestKruskalOperation(t *testing.T) {
 	g := graph.Graph{}
 	g.Nodes = nodes
 	g.Edges = edges
-	g.GetStronglyConnectedComponent()
+	scc := g.GetStronglyConnectedComponent()
+	fmt.Println(scc)
 }
