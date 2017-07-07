@@ -27,14 +27,17 @@ func (slice Meetings) Swap(i, j int) {
 
 //core method for this function
 func MergeMeetings(ranges Meetings) Meetings {
-	result := Meetings{}
 	sort.Sort(ranges)
+	return MergeSortedMeetings(ranges)
+}
+
+func MergeSortedMeetings(ranges Meetings) Meetings{
+	result := Meetings{}
 	if len(ranges) == 0 {
 		return result
 	}
-
-	cur_pos := 0
 	result = append(result, ranges[0])
+	cur_pos := 0
 	for i := 1; i < len(ranges); i++ {
 		if result[cur_pos].End >= ranges[i].Start && result[cur_pos].End < ranges[i].End {
 			result[cur_pos].End = ranges[i].End
@@ -44,6 +47,5 @@ func MergeMeetings(ranges Meetings) Meetings {
 			cur_pos++
 		}
 	}
-
 	return result
 }

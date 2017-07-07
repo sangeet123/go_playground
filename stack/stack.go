@@ -57,3 +57,9 @@ func (this *stack) Pop() custom_type {
 	this.data = this.data[:this.Size()-1]
 	return data
 }
+
+func (this *stack) Clear(){
+	for !this.IsEmpty(){
+		this.Pop()
+	}
+}
