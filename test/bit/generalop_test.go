@@ -1,4 +1,4 @@
-package generaloptest
+package bittest
 
 import (
 	"go_playground/bit"

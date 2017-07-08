@@ -1,11 +1,11 @@
 package graph
 
 import (
-  "sort"
+	"sort"
 )
 
 type nodeInfo struct {
-  n Node
+	n Node
 	f int // finish time
 }
 
@@ -24,29 +24,29 @@ func (slice nodesInfo) Swap(i, j int) {
 	slice[i], slice[j] = slice[j], slice[i]
 }
 
-func (g Graph) GetStronglyConnectedComponent()[][]TraversalResult {
+func (g Graph) GetStronglyConnectedComponent() [][]TraversalResult {
 	infoNodes := preProcess(g)
-  sort.Sort(infoNodes)
-  return postProcess(g,infoNodes)
+	sort.Sort(infoNodes)
+	return postProcess(g, infoNodes)
 }
 
-func postProcess(g Graph, infoNodes nodesInfo)[][]TraversalResult{
-  adjMatrixTranspose := g.getTransposeAdjMatrix()
-  traversedNode := make(map[Node]struct{})
-  sccSet := [][]TraversalResult{}
-  for _, nInfo := range infoNodes {
-    if _, ok := traversedNode[nInfo.n]; !ok {
-      dfsResultSet := []TraversalResult{}
-      traversedNode[nInfo.n] = struct{}{}
-      dfsResultSet = append(dfsResultSet, TraversalResult{N: nInfo.n, P: Node{}})
-      dfsTraversal(adjMatrixTranspose, nInfo.n, traversedNode, &dfsResultSet)
-      sccSet = append(sccSet,dfsResultSet)
-    }
-  }
-  return sccSet
+func postProcess(g Graph, infoNodes nodesInfo) [][]TraversalResult {
+	adjMatrixTranspose := g.getTransposeAdjMatrix()
+	traversedNode := make(map[Node]struct{})
+	sccSet := [][]TraversalResult{}
+	for _, nInfo := range infoNodes {
+		if _, ok := traversedNode[nInfo.n]; !ok {
+			dfsResultSet := []TraversalResult{}
+			traversedNode[nInfo.n] = struct{}{}
+			dfsResultSet = append(dfsResultSet, TraversalResult{N: nInfo.n, P: Node{}})
+			dfsTraversal(adjMatrixTranspose, nInfo.n, traversedNode, &dfsResultSet)
+			sccSet = append(sccSet, dfsResultSet)
+		}
+	}
+	return sccSet
 }
 
-func preProcess(g Graph) nodesInfo{
+func preProcess(g Graph) nodesInfo {
 	adjMatrix := g.getAdjMatrix()
 	traversedNode := make(map[Node]int)
 	startTime := 1
@@ -59,22 +59,22 @@ func preProcess(g Graph) nodesInfo{
 	return populateNodeInfo(traversedNode)
 }
 
-func populateNodeInfo(traversedNode map[Node]int)[]nodeInfo{
-  result := nodesInfo{}
-  for k,v := range traversedNode{
-    result = append(result,nodeInfo{k,v})
-  }
-  return result
+func populateNodeInfo(traversedNode map[Node]int) []nodeInfo {
+	result := nodesInfo{}
+	for k, v := range traversedNode {
+		result = append(result, nodeInfo{k, v})
+	}
+	return result
 }
 
 func recordStartAndFinishTimeForDFSTraversal(adjMatrix *AdjMatrix, curNode Node, traversedNode map[Node]int, time *int) {
 	for neighbor := range adjMatrix.neighbors[curNode] {
 		if _, ok := traversedNode[neighbor]; !ok {
-      *time++
-      traversedNode[neighbor] = *time
+			*time++
+			traversedNode[neighbor] = *time
 			recordStartAndFinishTimeForDFSTraversal(adjMatrix, neighbor, traversedNode, time)
 		}
 	}
-  *time++
+	*time++
 	traversedNode[curNode] = *time
 }

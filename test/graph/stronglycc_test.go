@@ -1,9 +1,9 @@
 package kruskaltest
 
 import (
+	"fmt"
 	"go_playground/graph"
 	"testing"
-	"fmt"
 )
 
 func TestKruskalOperation(t *testing.T) {
