@@ -25,3 +25,10 @@ func TestFourSumExample3(t *testing.T) {
 		t.Error("Expected 4 but received ", received)
 	}
 }
+
+func TestFourSumExample4(t *testing.T) {
+	arr := []int{}
+	if received := arrayprob.LengthOfLongestSequence(arr); received != 0 {
+		t.Error("Expected 4 but received ", received)
+	}
+}
