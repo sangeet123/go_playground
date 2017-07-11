@@ -22,6 +22,3 @@ func TestSwapEvenOddBitExample3(t *testing.T) {
 		t.Error("Expected 1100 but received ", val)
 	}
 }
-
-//11111111101111111111101101111011
-//10111111011111111111011110110111
