@@ -39,3 +39,10 @@ func TestDupsExample2(t *testing.T) {
 		t.Error("Expected true but received false")
 	}
 }
+
+func TestDupsExample3(t *testing.T) {
+	arr := []int{1, 2, 3, 4, 5, 6, 4, 7}
+	if hasDup := arrayprob.HasDups(arr, 4); hasDup {
+		t.Error("Expected false but received true")
+	}
+}
