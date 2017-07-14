@@ -150,6 +150,9 @@ func (this intTree) LevelOrder() []int {
 }
 
 func levelOrder(n *node, toRetPtr intptr) {
+	if n == nil {
+		return
+	}
 	list := new(list.List)
 	list.Append(n)
 	for list.Size() > 0 {
